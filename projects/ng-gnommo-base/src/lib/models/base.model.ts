@@ -1,4 +1,4 @@
 export class BaseModel {
   _id?: string;
-  instance?: any;
+  instance?: Record<string, unknown>;
 }

@@ -3,6 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseModel } from '../../models/base.model';
 import { BaseService } from './base.service';
+import { 
+  LoginCredentials, 
+  PasswordRecoveryRequest, 
+  PasswordResetRequest, 
+  AuthenticationResponse,
+  HttpHeaderMap 
+} from '../../interfaces/http-types.interface';
 
 @Injectable()
 export class LoginBaseService<T extends BaseModel> extends BaseService<T> {
@@ -15,30 +22,29 @@ export class LoginBaseService<T extends BaseModel> extends BaseService<T> {
     this.setApiConfig(url, endpoint);
   }
 
-  login(credentials: any, headers?: any): Observable<any> {
+  login(credentials: LoginCredentials, headers?: HttpHeaderMap): Observable<AuthenticationResponse> {
     const options = this.createHttpHeaders(headers);
-    return this.http.post(`${this.url}/${this.endpoint}/login`, credentials, options);
+    return this.http.post<AuthenticationResponse>(`${this.url}/${this.endpoint}/login`, credentials, options);
   }
 
-  passwordRecovery(email: any, headers?: any): Observable<any> {
+  passwordRecovery(email: string, headers?: HttpHeaderMap): Observable<AuthenticationResponse> {
     const options = this.createHttpHeaders(headers);
-    return this.http.post(`${this.url}/${this.endpoint}/reset`, { email }, options);
+    const request: PasswordRecoveryRequest = { email };
+    return this.http.post<AuthenticationResponse>(`${this.url}/${this.endpoint}/reset`, request, options);
   }
 
-  resetPassword(newPassword: any, hash: any, headers?: any): Observable<any> {
+  resetPassword(newPassword: string, hash: string, headers?: HttpHeaderMap): Observable<AuthenticationResponse> {
     const options = this.createHttpHeaders(headers);
-    return this.http.post(`${this.url}/${this.endpoint}/reset-password`, { 
-      newPassword, 
-      hash 
-    }, options);
+    const request: PasswordResetRequest = { newPassword, hash };
+    return this.http.post<AuthenticationResponse>(`${this.url}/${this.endpoint}/reset-password`, request, options);
   }
 
-  getCurrentUser(token: any, headers?: any): Observable<T> {
+  getCurrentUser(token: string, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.get<T>(`${this.url}/${this.endpoint}/me`, options);
   }
 
-  register(item: T, headers?: any): Observable<T> {
+  register(item: T, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.post<T>(`${this.url}/${this.endpoint}/register`, item, options);
   }

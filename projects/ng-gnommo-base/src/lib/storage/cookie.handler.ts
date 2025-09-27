@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseStorage } from './storage.handler';
+import { StorageValue } from '../interfaces/http-types.interface';
 
 @Injectable()
 export class CookieHandler extends BaseStorage {
   
-  get(key: string): any {
+  get(key: string): StorageValue {
     const nameEQ = key + '=';
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {
@@ -24,8 +25,8 @@ export class CookieHandler extends BaseStorage {
     return null;
   }
 
-  set(key: string, value: any, expires?: Date): void {
-    let cookie = key + '=' + (typeof value === 'object' ? JSON.stringify(value) : value);
+  set(key: string, value: StorageValue, expires?: Date): void {
+    let cookie = key + '=' + (typeof value === 'object' ? JSON.stringify(value) : String(value));
     if (expires) {
       cookie += '; expires=' + expires.toUTCString();
     }

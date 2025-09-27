@@ -2,12 +2,12 @@
 
 ## Overview
 
-The Closca Angular Base Library (@gnommostudios/ng-gnommo-base) follows a modular architecture designed to provide reusable components for Angular applications. The library is built with modern Angular patterns and TypeScript best practices.
+The Closca Angular Base Library (@tyris/angular-foundation) follows a modular architecture designed to provide reusable components for Angular applications. The library is built with modern Angular patterns and TypeScript best practices.
 
 ## Core Architecture
 
 ```
-NgGnommoBaseModule
+AngularFoundationModule
 ├── Services
 │   ├── AuthService (Token Management)
 │   ├── BaseService<T> (Generic CRUD)
@@ -108,7 +108,7 @@ HTTP Request → AuthInterceptor → ErrorInterceptor → Backend
 ### Lazy Loading Support
 The module uses `forRoot()` pattern for singleton services:
 ```typescript
-NgGnommoBaseModule.forRoot() // Root module only
+AngularFoundationModule.forRoot() // Root module only
 ```
 
 ### Provider Configuration

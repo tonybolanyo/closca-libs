@@ -6,20 +6,20 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ng-gnommo-base": {
+    "angular-foundation": {
       "projectType": "library",
-      "root": "projects/ng-gnommo-base",
-      "sourceRoot": "projects/ng-gnommo-base/src",
-      "prefix": "gnommo",
+      "root": "projects/angular-foundation",
+      "sourceRoot": "projects/angular-foundation/src",
+      "prefix": "tyris",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-gnommo-base/tsconfig.lib.prod.json"
+              "tsConfig": "projects/angular-foundation/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ng-gnommo-base/tsconfig.lib.json"
+              "tsConfig": "projects/angular-foundation/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,8 +27,8 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/ng-gnommo-base/tsconfig.spec.json",
-            "main": "projects/ng-gnommo-base/src/test.ts",
+            "tsConfig": "projects/angular-foundation/tsconfig.spec.json",
+            "main": "projects/angular-foundation/src/test.ts",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

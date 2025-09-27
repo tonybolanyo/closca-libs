@@ -476,7 +476,7 @@ Header key used to skip authentication injection.
 
 **Example**:
 ```typescript
-import { InterceptorSkipHeader } from '@gnommostudios/ng-gnommo-base';
+import { InterceptorSkipHeader } from '@tyris/angular-foundation';
 
 const headers = new HttpHeaders().set(InterceptorSkipHeader, 'true');
 this.http.get('/public/endpoint', { headers });

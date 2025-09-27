@@ -29,4 +29,4 @@ export { AuthToken } from './models/auth-token.model';
 export { BaseModel } from './models/base.model';
 
 // Module
-export { NgGnommoBaseModule } from './ng-gnommo-base.module';
+export { AngularFoundationModule } from './angular-foundation.module';

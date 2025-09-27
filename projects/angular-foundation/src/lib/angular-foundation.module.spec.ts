@@ -1,16 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NgGnommoBaseModule } from './ng-gnommo-base.module';
+import { AngularFoundationModule } from './angular-foundation.module';
 import { AuthService } from './services/core/auth.service';
 import { LoginBaseService } from './services/core/login-base.service';
 import { CookieStorage, WebLocalStorage } from './storage/storage.handler';
 
-describe('NgGnommoBaseModule', () => {
+describe('AngularFoundationModule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        NgGnommoBaseModule.forRoot()
+        AngularFoundationModule.forRoot()
       ]
     });
   });

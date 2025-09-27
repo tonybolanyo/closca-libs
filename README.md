@@ -1,6 +1,6 @@
-# Closca Angular Base Library (@gnommostudios/ng-gnommo-base)
+# Tyris Angular Foundation Library (@tyris/angular-foundation)
 
-A modernized Angular library providing authentication services, HTTP interceptors, and storage handlers. This library has been completely reconstructed from the original compiled version to support Angular 10+ with modern TypeScript and build tooling.
+A modernized Angular library providing authentication services, HTTP interceptors, storage handlers, and base CRUD operations. This library has been completely reconstructed from the original compiled version to support Angular 10+ with modern TypeScript and build tooling.
 
 ## 🚀 Features
 
@@ -16,7 +16,7 @@ A modernized Angular library providing authentication services, HTTP interceptor
 ## 📦 Installation
 
 ```bash
-npm install @gnommostudios/ng-gnommo-base
+npm install @tyris/angular-foundation
 ```
 
 ## 🛠️ Quick Start
@@ -25,11 +25,11 @@ npm install @gnommostudios/ng-gnommo-base
 
 ```typescript
 import { NgModule } from '@angular/core';
-import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 @NgModule({
   imports: [
-    NgGnommoBaseModule.forRoot()
+    AngularFoundationModule.forRoot()
   ],
   // ...
 })
@@ -39,7 +39,7 @@ export class AppModule { }
 ### 2. Create Your User Model
 
 ```typescript
-import { BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { BaseModel } from '@tyris/angular-foundation';
 
 interface User extends BaseModel {
   name: string;
@@ -53,7 +53,7 @@ interface User extends BaseModel {
 ```typescript
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginBaseService } from '@gnommostudios/ng-gnommo-base';
+import { LoginBaseService } from '@tyris/angular-foundation';
 
 @Injectable({
   providedIn: 'root'
@@ -71,7 +71,7 @@ export class AuthService extends LoginBaseService<User> {
 ```typescript
 import { Component } from '@angular/core';
 import { AuthService as AuthApiService } from './auth.service';
-import { AuthService } from '@gnommostudios/ng-gnommo-base';
+import { AuthService } from '@tyris/angular-foundation';
 
 @Component({
   selector: 'app-login',
@@ -157,7 +157,7 @@ The library automatically configures HTTP interceptors:
 Skip authentication for specific requests:
 
 ```typescript
-import { InterceptorSkipHeader } from '@gnommostudios/ng-gnommo-base';
+import { InterceptorSkipHeader } from '@tyris/angular-foundation';
 
 const headers = new HttpHeaders().set(InterceptorSkipHeader, 'true');
 this.http.get('/public-endpoint', { headers });
@@ -262,7 +262,7 @@ npm run watch
 npm run pack
 ```
 
-This creates a `.tgz` file in `dist/ng-gnommo-base/` ready for NPM publishing.
+This creates a `.tgz` file in `dist/angular-foundation/` ready for NPM publishing.
 
 ## 🔄 Compatibility
 
@@ -280,10 +280,10 @@ The library maintains API compatibility with v0.0.8:
 1. **Update the import**:
    ```typescript
    // Old
-   import { GnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+   import { AngularFoundationModule } from '@tyris/angular-foundation';
    
    // New
-   import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+   import { AngularFoundationModule } from '@tyris/angular-foundation';
    ```
 
 2. **Extend BaseModel** (recommended):
@@ -354,7 +354,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 When reporting issues, please include:
 
-- Library version (`npm list @gnommostudios/ng-gnommo-base`)
+- Library version (`npm list @tyris/angular-foundation`)
 - Angular version (`ng version`)
 - Browser and version
 - Minimal reproduction example
@@ -379,7 +379,7 @@ We welcome feature requests! Please:
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
-![npm version](https://img.shields.io/npm/v/@gnommostudios/ng-gnommo-base)
+![npm version](https://img.shields.io/npm/v/@tyris/angular-foundation)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Angular](https://img.shields.io/badge/Angular-10%2B-red)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.0%2B-blue)

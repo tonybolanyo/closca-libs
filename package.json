@@ -1,18 +1,18 @@
 {
-  "name": "closca-libs",
+  "name": "angular-foundation-libs",
   "version": "1.0.0",
-  "description": "Closca Angular Base Library - A modernized Angular library providing authentication services, HTTP interceptors, and storage handlers",
+  "description": "Tyris Angular Foundation Library - A modernized Angular library providing authentication services, HTTP interceptors, storage handlers, and base CRUD operations",
   "scripts": {
     "ng": "ng",
-    "build": "ng build ng-gnommo-base",
-    "build:prod": "ng build ng-gnommo-base --configuration production",
-    "test": "ng test ng-gnommo-base --watch=false --browsers=ChromeHeadless",
-    "test:watch": "ng test ng-gnommo-base",
-    "pack": "npm run build:prod && cd dist/ng-gnommo-base && npm pack",
-    "start": "ng test ng-gnommo-base",
-    "dev": "ng test ng-gnommo-base",
-    "lint": "ng lint ng-gnommo-base 2>/dev/null || echo 'Linting not configured'",
-    "watch": "ng build ng-gnommo-base --watch --configuration development",
+    "build": "ng build angular-foundation",
+    "build:prod": "ng build angular-foundation --configuration production",
+    "test": "ng test angular-foundation --watch=false --browsers=ChromeHeadless",
+    "test:watch": "ng test angular-foundation",
+    "pack": "npm run build:prod && cd dist/angular-foundation && npm pack",
+    "start": "ng test angular-foundation",
+    "dev": "ng test angular-foundation",
+    "lint": "ng lint angular-foundation 2>/dev/null || echo 'Linting not configured'",
+    "watch": "ng build angular-foundation --watch --configuration development",
     "docs": "typedoc",
     "docs:serve": "npm run docs && npx http-server docs/api -p 8080 -o"
   },
@@ -22,10 +22,10 @@
     "authentication",
     "http-interceptors",
     "storage",
-    "closca",
-    "gnommo-base"
+    "angular-foundation",
+    "tyris"
   ],
-  "author": "Closca Team",
+  "author": "Tyris Team",
   "license": "MIT",
   "repository": {
     "type": "git",

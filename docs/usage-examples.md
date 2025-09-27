@@ -20,13 +20,13 @@ This document provides comprehensive examples of how to use the Closca Angular B
 // app.module.ts
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NgGnommoBaseModule.forRoot()
+    AngularFoundationModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -38,7 +38,7 @@ export class AppModule { }
 ```typescript
 // app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@gnommostudios/ng-gnommo-base';
+import { AuthService } from '@tyris/angular-foundation';
 
 @Component({
   selector: 'app-root',
@@ -92,7 +92,7 @@ import {
   BaseModel,
   LoginCredentials,
   AuthenticationResponse 
-} from '@gnommostudios/ng-gnommo-base';
+} from '@tyris/angular-foundation';
 
 interface User extends BaseModel {
   id: string;
@@ -298,7 +298,7 @@ export class AuthGuard implements CanActivate {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseService, BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { BaseService, BaseModel } from '@tyris/angular-foundation';
 
 interface User extends BaseModel {
   id: string;
@@ -540,7 +540,7 @@ export class UserListComponent implements OnInit {
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { BaseService, BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { BaseService, BaseModel } from '@tyris/angular-foundation';
 
 interface Product extends BaseModel {
   id: string;
@@ -637,7 +637,7 @@ export class CategoryService extends BaseService<ProductCategory> {
 ```typescript
 // preferences.service.ts
 import { Injectable } from '@angular/core';
-import { LocalStorageHandler, CookieHandler } from '@gnommostudios/ng-gnommo-base';
+import { LocalStorageHandler, CookieHandler } from '@tyris/angular-foundation';
 import { BehaviorSubject } from 'rxjs';
 
 interface UserPreferences {
@@ -754,7 +754,7 @@ export class PreferencesService {
 ```typescript
 // session.service.ts
 import { Injectable } from '@angular/core';
-import { LocalStorageHandler, AuthService } from '@gnommostudios/ng-gnommo-base';
+import { LocalStorageHandler, AuthService } from '@tyris/angular-foundation';
 import { interval, Subscription } from 'rxjs';
 
 interface SessionData {
@@ -882,7 +882,7 @@ export interface Repository<T> {
 
 // base.repository.ts
 import { Observable } from 'rxjs';
-import { BaseService, BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { BaseService, BaseModel } from '@tyris/angular-foundation';
 
 export abstract class BaseRepository<T extends BaseModel> implements Repository<T> {
   constructor(protected service: BaseService<T>) {}
@@ -1081,7 +1081,7 @@ export class DataService {
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthApiService } from './auth.service';
-import { AuthService } from '@gnommostudios/ng-gnommo-base';
+import { AuthService } from '@tyris/angular-foundation';
 
 describe('AuthApiService', () => {
   let service: AuthApiService;
@@ -1230,7 +1230,7 @@ describe('LoginComponent', () => {
 ### Mock Storage for Testing
 ```typescript
 // mock-storage.ts
-import { BaseStorage, StorageValue } from '@gnommostudios/ng-gnommo-base';
+import { BaseStorage, StorageValue } from '@tyris/angular-foundation';
 
 export class MockStorage extends BaseStorage {
   private storage = new Map<string, StorageValue>();

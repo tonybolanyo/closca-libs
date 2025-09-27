@@ -1,36 +1,74 @@
 # Migration Guide
 
-This document provides guidance for migrating between versions of the Closca Angular Base Library and upgrading from older versions.
+This document provides guidance for migrating between versions of the Tyris Angular Foundation Library and upgrading from older versions.
 
 ## Table of Contents
 
-- [Migration from v0.0.8](#migration-from-v008)
+- [Migration from @gnommostudios/ng-gnommo-base](#migration-from-gnommostudiosng-gnommo-base)
 - [Angular Version Compatibility](#angular-version-compatibility)
 - [Breaking Changes](#breaking-changes)
 - [Step-by-Step Migration](#step-by-step-migration)
 - [Common Issues and Solutions](#common-issues-and-solutions)
 - [Version History](#version-history)
 
-## Migration from v0.0.8
+## Migration from @gnommostudios/ng-gnommo-base
 
-The current version maintains API compatibility with v0.0.8 while providing significant improvements in TypeScript support, Angular compatibility, and code organization.
+The library has been renamed from `@gnommostudios/ng-gnommo-base` to `@tyris/angular-foundation` with version 1.0.0. The API maintains compatibility with the previous version while providing a more descriptive name and improved functionality.
+
+### Package Name Change
+
+#### Step 1: Uninstall Old Package
+```bash
+npm uninstall @gnommostudios/ng-gnommo-base
+```
+
+#### Step 2: Install New Package
+```bash
+npm install @tyris/angular-foundation
+```
+
+#### Step 3: Update Imports
+```typescript
+// Old imports
+import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+
+// New imports
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+```
+
+#### Step 4: Update Module Registration
+```typescript
+// Old module registration
+@NgModule({
+  imports: [
+    NgGnommoBaseModule.forRoot()
+  ]
+})
+
+// New module registration
+@NgModule({
+  imports: [
+    AngularFoundationModule.forRoot()
+  ]
+})
+```
 
 ### What's Changed
 
 #### Module Name
 ```typescript
 // Old (v0.0.8)
-import { GnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 @NgModule({
-  imports: [GnommoBaseModule.forRoot()]
+  imports: [AngularFoundationModule.forRoot()]
 })
 
 // New (v1.0.0+)
-import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 @NgModule({
-  imports: [NgGnommoBaseModule.forRoot()]
+  imports: [AngularFoundationModule.forRoot()]
 })
 ```
 
@@ -38,9 +76,9 @@ import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
 All service and model imports remain the same:
 ```typescript
 // These imports work in both versions
-import { AuthService, BaseService, LoginBaseService } from '@gnommostudios/ng-gnommo-base';
-import { LocalStorageHandler, CookieHandler } from '@gnommostudios/ng-gnommo-base';
-import { AuthToken, BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { AuthService, BaseService, LoginBaseService } from '@tyris/angular-foundation';
+import { LocalStorageHandler, CookieHandler } from '@tyris/angular-foundation';
+import { AuthToken, BaseModel } from '@tyris/angular-foundation';
 ```
 
 #### Enhanced TypeScript Support
@@ -69,14 +107,14 @@ class UserService extends BaseService<User> {
 
 1. **Update Module Import**:
    ```typescript
-   // Replace GnommoBaseModule with NgGnommoBaseModule
-   import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+   // Replace AngularFoundationModule with AngularFoundationModule
+   import { AngularFoundationModule } from '@tyris/angular-foundation';
    ```
 
 2. **Update Module Configuration**:
    ```typescript
    @NgModule({
-     imports: [NgGnommoBaseModule.forRoot()] // Changed from GnommoBaseModule
+     imports: [AngularFoundationModule.forRoot()] // Changed from AngularFoundationModule
    })
    ```
 
@@ -122,7 +160,7 @@ If you're upgrading from an older Angular version:
 
 2. **Update the Library**:
    ```bash
-   npm install @gnommostudios/ng-gnommo-base@latest
+   npm install @tyris/angular-foundation@latest
    ```
 
 3. **Update Dependencies**:
@@ -135,7 +173,7 @@ If you're upgrading from an older Angular version:
 ### Version 1.0.0
 
 #### Module Name Change
-- **Breaking**: `GnommoBaseModule` renamed to `NgGnommoBaseModule`
+- **Breaking**: `AngularFoundationModule` renamed to `AngularFoundationModule`
 - **Impact**: Update imports in app.module.ts
 - **Migration**: Replace import statement as shown above
 
@@ -170,8 +208,8 @@ git tag pre-migration-backup
 
 #### Step 2: Update Package
 ```bash
-npm uninstall @gnommostudios/ng-gnommo-base
-npm install @gnommostudios/ng-gnommo-base@latest
+npm uninstall @tyris/angular-foundation
+npm install @tyris/angular-foundation@latest
 ```
 
 #### Step 3: Update Module Imports
@@ -179,7 +217,7 @@ Find and replace in your codebase:
 
 ```bash
 # Using sed (Linux/Mac)
-find src -name "*.ts" -exec sed -i 's/GnommoBaseModule/NgGnommoBaseModule/g' {} \;
+find src -name "*.ts" -exec sed -i 's/AngularFoundationModule/AngularFoundationModule/g' {} \;
 
 # Or manually update each file
 ```
@@ -194,7 +232,7 @@ interface User {
 }
 
 // After
-import { BaseModel } from '@gnommostudios/ng-gnommo-base';
+import { BaseModel } from '@tyris/angular-foundation';
 
 interface User extends BaseModel {
   name: string;
@@ -215,7 +253,7 @@ export class UserService {
 }
 
 // After - Using BaseService
-import { BaseService } from '@gnommostudios/ng-gnommo-base';
+import { BaseService } from '@tyris/angular-foundation';
 
 @Injectable()
 export class UserService extends BaseService<User> {
@@ -255,7 +293,7 @@ Take advantage of new features:
 
 ```typescript
 // Use new type-safe interfaces
-import { LoginCredentials, AuthenticationResponse } from '@gnommostudios/ng-gnommo-base';
+import { LoginCredentials, AuthenticationResponse } from '@tyris/angular-foundation';
 
 // Leverage improved error handling
 export class AuthService extends LoginBaseService<User> {
@@ -275,7 +313,7 @@ export class AuthService extends LoginBaseService<User> {
 
 - [ ] Backup project
 - [ ] Update package version
-- [ ] Update module imports (GnommoBaseModule → NgGnommoBaseModule)
+- [ ] Update module imports (AngularFoundationModule → AngularFoundationModule)
 - [ ] Extend BaseModel in your interfaces
 - [ ] Update service implementations to use BaseService
 - [ ] Test authentication functionality
@@ -288,15 +326,15 @@ export class AuthService extends LoginBaseService<User> {
 ## Common Issues and Solutions
 
 ### Issue 1: Module Import Error
-**Error**: `Cannot find module 'GnommoBaseModule'`
+**Error**: `Cannot find module 'AngularFoundationModule'`
 
 **Solution**: Update the import statement:
 ```typescript
 // Change this
-import { GnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 // To this
-import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 ```
 
 ### Issue 2: Type Errors After Migration
@@ -317,7 +355,7 @@ interface User extends BaseModel {
 ```typescript
 @NgModule({
   imports: [
-    NgGnommoBaseModule.forRoot() // Ensure forRoot() is called
+    AngularFoundationModule.forRoot() // Ensure forRoot() is called
   ]
 })
 ```
@@ -373,7 +411,7 @@ beforeEach(() => {
 ### v1.0.0 (Current)
 - **Release Date**: 2024
 - **Major Changes**:
-  - Module name changed to NgGnommoBaseModule
+  - Module name changed to AngularFoundationModule
   - Enhanced TypeScript support
   - Angular 10+ compatibility
   - Comprehensive JSDoc documentation

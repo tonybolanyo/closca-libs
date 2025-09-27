@@ -7,7 +7,7 @@ describe('CookieHandler', () => {
     handler = new CookieHandler();
     // Clear all cookies before each test
     document.cookie.split(";").forEach(function(c) {
-      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/");
     });
   });
 

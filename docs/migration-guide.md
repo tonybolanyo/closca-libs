@@ -411,7 +411,7 @@ beforeEach(() => {
 ### v1.0.0 (Current)
 - **Release Date**: 2024
 - **Major Changes**:
-  - Module name changed to AngularFoundationModule
+  - Module name changed from NgGnommoBaseModule to AngularFoundationModule
   - Enhanced TypeScript support
   - Angular 10+ compatibility
   - Comprehensive JSDoc documentation

@@ -1,0 +1,30 @@
+{
+  "entryPoints": ["projects/ng-gnommo-base/src/public-api.ts"],
+  "out": "docs/api",
+  "theme": "default",
+  "name": "Closca Angular Base Library API Documentation",
+  "readme": "README.md",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeExternals": true,
+  "hideGenerator": false,
+  "searchInComments": true,
+  "sort": ["source-order"],
+  "kindSortOrder": [
+    "Module",
+    "Namespace",
+    "Enum",
+    "EnumMember",
+    "Class",
+    "Interface",
+    "TypeAlias",
+    "Constructor",
+    "Property",
+    "Variable",
+    "Function",
+    "Accessor",
+    "Method"
+  ],
+  "tsconfig": "projects/ng-gnommo-base/tsconfig.lib.json"
+}

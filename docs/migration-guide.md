@@ -313,7 +313,7 @@ export class AuthService extends LoginBaseService<User> {
 
 - [ ] Backup project
 - [ ] Update package version
-- [ ] Update module imports (AngularFoundationModule → AngularFoundationModule)
+- [ ] Update module imports (NgGnommoBaseModule → AngularFoundationModule)
 - [ ] Extend BaseModel in your interfaces
 - [ ] Update service implementations to use BaseService
 - [ ] Test authentication functionality

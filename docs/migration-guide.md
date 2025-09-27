@@ -217,7 +217,7 @@ Find and replace in your codebase:
 
 ```bash
 # Using sed (Linux/Mac)
-find src -name "*.ts" -exec sed -i 's/AngularFoundationModule/AngularFoundationModule/g' {} \;
+find src -name "*.ts" -exec sed -i 's/NgGnommoBaseModule/AngularFoundationModule/g' {} \;
 
 # Or manually update each file
 ```

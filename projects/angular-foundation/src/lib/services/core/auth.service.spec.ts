@@ -130,13 +130,15 @@ describe('AuthService', () => {
         service.setToken(tokenId);
 
         expect(localStorageSpy.setItem).toHaveBeenCalled();
+        // The storage handler now makes one call with integrated format
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe('access_token');
         
         const storedData = JSON.parse(setItemCall.args[1]);
-        expect(storedData.id).toBe(tokenId);
-        expect(storedData.created).toBe('2023-01-01T00:00:00.000Z');
-        expect(typeof storedData.ttl).toBe('number');
+        expect(storedData.value.id).toBe(tokenId);
+        expect(storedData.value.created).toBe('2023-01-01T00:00:00.000Z');
+        expect(typeof storedData.value.ttl).toBe('number');
+        expect(typeof storedData.expires).toBe('string'); // Should have expiration
       });
 
       it('should create AuthToken instance with correct expiration', () => {
@@ -189,6 +191,7 @@ describe('AuthService', () => {
         token = service.getToken();
         expect(token.id).toBe('second-token');
         
+        // Each setToken call now makes 1 localStorage call (integrated format)
         expect(localStorageSpy.setItem).toHaveBeenCalledTimes(2);
       });
     });
@@ -255,6 +258,7 @@ describe('AuthService', () => {
         service.persist(key, value, expirationDate);
 
         expect(localStorageSpy.setItem).toHaveBeenCalled();
+        // The storage handler now uses integrated format
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
         
@@ -271,6 +275,8 @@ describe('AuthService', () => {
         service.persist(key, value, expirationDate);
 
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+        expect(setItemCall.args[0]).toBe(key);
+        
         const storedData = JSON.parse(setItemCall.args[1]);
         expect(storedData.value).toEqual(value);
         expect(storedData.expires).toBe(expirationDate.toISOString());
@@ -283,7 +289,11 @@ describe('AuthService', () => {
         service.persist(key, value);
 
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+        expect(setItemCall.args[0]).toBe(key);
+        
         const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toBe(value);
+        expect(storedData.expires).toBeDefined();
         
         // Should use default 7-day expiration
         const expectedExpiration = new Date('2023-01-08T00:00:00Z');
@@ -297,8 +307,10 @@ describe('AuthService', () => {
         service.persist(key, value);
 
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+        expect(setItemCall.args[0]).toBe(key);
+        
         const storedData = JSON.parse(setItemCall.args[1]);
-        expect(storedData.value).toBeNull();
+        expect(storedData.value).toBe(value);
       });
 
       it('should handle undefined value', () => {
@@ -308,8 +320,10 @@ describe('AuthService', () => {
         service.persist(key, value);
 
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+        expect(setItemCall.args[0]).toBe(key);
+        
         const storedData = JSON.parse(setItemCall.args[1]);
-        expect(storedData.value).toBeUndefined();
+        expect(storedData.value).toBe(value);
       });
 
       it('should handle array value', () => {
@@ -319,6 +333,8 @@ describe('AuthService', () => {
         service.persist(key, value);
 
         const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+        expect(setItemCall.args[0]).toBe(key);
+        
         const storedData = JSON.parse(setItemCall.args[1]);
         expect(storedData.value).toEqual(value);
       });
@@ -395,7 +411,7 @@ describe('AuthService', () => {
         jasmine.clock().mockDate(new Date('2024-02-26T00:00:00Z')); // 2024 is a leap year
         
         const result = service.expiresTime();
-        const expected = new Date('2024-03-05T00:00:00Z');
+        const expected = new Date('2024-03-04T00:00:00Z'); // Feb 26 + 7 days = Mar 4 (corrected)
         
         expect(result.getTime()).toBe(expected.getTime());
       });
@@ -458,6 +474,7 @@ describe('AuthService', () => {
       
       const finalToken = service.getToken();
       expect(finalToken.id).toBe('token3');
+      // Each setToken call now makes 1 localStorage call (integrated format)
       expect(localStorageSpy.setItem).toHaveBeenCalledTimes(3);
     });
 
@@ -472,6 +489,8 @@ describe('AuthService', () => {
       service.persist('special_chars', specialData);
       
       const setItemCall = localStorageSpy.setItem.calls.mostRecent();
+      expect(setItemCall.args[0]).toBe('special_chars');
+      
       const storedData = JSON.parse(setItemCall.args[1]);
       expect(storedData.value).toEqual(specialData);
     });

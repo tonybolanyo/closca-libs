@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStorage } from './storage.handler';
+import { BaseStorage, WebLocalStorage } from './storage.handler';
 import { StorageValue } from '../interfaces/http-types.interface';
 
 /**
@@ -31,7 +31,7 @@ import { StorageValue } from '../interfaces/http-types.interface';
  * ```
  */
 @Injectable()
-export class LocalStorageHandler extends BaseStorage {
+export class LocalStorageHandler extends WebLocalStorage {
   
   /**
    * Retrieves a value from localStorage by key.
@@ -56,14 +56,36 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   get(key: string): StorageValue {
-    if (typeof Storage !== 'undefined') {
-      const value = localStorage.getItem(key);
-      if (value) {
-        try {
-          return JSON.parse(value);
-        } catch (e) {
-          return value;
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        const storedData = localStorage.getItem(key);
+        if (storedData) {
+          try {
+            const parsedData = JSON.parse(storedData);
+            
+            // Check if this is the new format with expiration
+            if (parsedData && typeof parsedData === 'object' && parsedData.hasOwnProperty('value')) {
+              // Check expiration if present
+              if (parsedData.expires) {
+                const expirationDate = new Date(parsedData.expires);
+                if (expirationDate.getTime() < Date.now()) {
+                  // Item has expired, remove it and return null
+                  this.remove(key);
+                  return null;
+                }
+              }
+              return parsedData.value;
+            } else {
+              // Fallback for old format or direct values
+              return parsedData;
+            }
+          } catch (e) {
+            // If JSON parsing fails, return null for corrupted data
+            return null;
+          }
         }
+      } catch (error) {
+        console.warn('LocalStorage unavailable:', error);
       }
     }
     return null;
@@ -94,15 +116,32 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   set(key: string, value: StorageValue, expires?: Date): void {
-    if (typeof Storage !== 'undefined') {
-      const storageValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
-      localStorage.setItem(key, storageValue);
-      
-      // Handle expiration by storing timestamp if expires is provided
-      if (expires) {
-        localStorage.setItem(key + '_expires', expires.getTime().toString());
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        const storageData: any = { value };
+        
+        // Always add expiration - use provided date or default to 7 days from now
+        const expirationDate = expires || this.getDefaultExpiration();
+        storageData.expires = expirationDate.toISOString();
+        
+        localStorage.setItem(key, JSON.stringify(storageData));
+      } catch (error) {
+        // Handle storage quota exceeded or other storage errors silently
+        console.warn('LocalStorage unavailable:', error);
       }
     }
+  }
+
+  /**
+   * Gets the default expiration date (7 days from now).
+   * 
+   * @private
+   * @returns {Date} A date 7 days from the current time
+   */
+  private getDefaultExpiration(): Date {
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    return date;
   }
 
   /**
@@ -123,9 +162,13 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   remove(key: string): void {
-    if (typeof Storage !== 'undefined') {
-      localStorage.removeItem(key);
-      localStorage.removeItem(key + '_expires');
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        localStorage.removeItem(key);
+        // Note: No longer removing separate _expires key since we use integrated format
+      } catch (error) {
+        console.warn('LocalStorage unavailable:', error);
+      }
     }
   }
 }

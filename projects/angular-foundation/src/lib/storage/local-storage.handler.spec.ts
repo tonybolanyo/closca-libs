@@ -398,7 +398,7 @@ describe('LocalStorageHandler', () => {
       // Test that it can read data in the format the old library would store
       const key = 'legacy-format';
       const value = 'legacy value';
-      const expires = new Date('2025-01-01T00:00:00Z');
+      const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000); // 1 year from now
       
       const legacyData = {
         value: value,

@@ -8,6 +8,7 @@
     "build:prod": "ng build angular-foundation --configuration production",
     "test": "ng test angular-foundation --watch=false --browsers=ChromeHeadless",
     "test:watch": "ng test angular-foundation",
+    "test:coverage": "ng test angular-foundation --watch=false --browsers=ChromeHeadless --code-coverage",
     "pack": "npm run build:prod && cd dist/angular-foundation && npm pack",
     "start": "ng test angular-foundation",
     "dev": "ng test angular-foundation",

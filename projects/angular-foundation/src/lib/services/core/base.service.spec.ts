@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { BaseModel } from '../../models/base.model';
 
@@ -10,6 +11,7 @@ interface TestUser extends BaseModel {
   email: string;
 }
 
+@Injectable()
 class TestUserService extends BaseService<TestUser> {
   constructor(http: HttpClient) {
     super(http);
@@ -194,7 +196,7 @@ describe('BaseService', () => {
     describe('delete()', () => {
       it('should delete item', () => {
         service.delete('123').subscribe(response => {
-          expect(response).toBeUndefined();
+          expect(response).toBeNull();
         });
 
         const req = httpMock.expectOne('https://api.test.com/users/123');

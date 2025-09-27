@@ -32,6 +32,12 @@
             "polyfills": [
               "zone.js",
               "zone.js/testing"
+            ],
+            "codeCoverage": true,
+            "codeCoverageExclude": [
+              "projects/angular-foundation/src/test.ts",
+              "projects/angular-foundation/src/**/*.spec.ts",
+              "projects/angular-foundation/src/**/*.d.ts"
             ]
           }
         }

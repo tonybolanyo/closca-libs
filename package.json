@@ -12,7 +12,9 @@
     "start": "ng test ng-gnommo-base",
     "dev": "ng test ng-gnommo-base",
     "lint": "ng lint ng-gnommo-base 2>/dev/null || echo 'Linting not configured'",
-    "watch": "ng build ng-gnommo-base --watch --configuration development"
+    "watch": "ng build ng-gnommo-base --watch --configuration development",
+    "docs": "typedoc",
+    "docs:serve": "npm run docs && npx http-server docs/api -p 8080 -o"
   },
   "keywords": [
     "angular",
@@ -65,6 +67,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "ng-packagr": "^20.3.0",
+    "typedoc": "^0.28.13",
     "typescript": "~5.9.2",
     "zone.js": "^0.15.1"
   }

@@ -42,5 +42,8 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Generated documentation
+/docs/api
+
 # Old library extraction for comparison (keep local only)
 damonfer-closca-self-libraries-279661c67f75/

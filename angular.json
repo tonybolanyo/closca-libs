@@ -27,7 +27,12 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/ng-gnommo-base/tsconfig.spec.json"
+            "tsConfig": "projects/ng-gnommo-base/tsconfig.spec.json",
+            "main": "projects/ng-gnommo-base/src/test.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }

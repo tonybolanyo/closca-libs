@@ -56,14 +56,18 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   get(key: string): StorageValue {
-    if (typeof Storage !== 'undefined') {
-      const value = localStorage.getItem(key);
-      if (value) {
-        try {
-          return JSON.parse(value);
-        } catch (e) {
-          return value;
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        const value = localStorage.getItem(key);
+        if (value) {
+          try {
+            return JSON.parse(value);
+          } catch (e) {
+            return value;
+          }
         }
+      } catch (error) {
+        console.warn('LocalStorage unavailable:', error);
       }
     }
     return null;
@@ -94,13 +98,18 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   set(key: string, value: StorageValue, expires?: Date): void {
-    if (typeof Storage !== 'undefined') {
-      const storageValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
-      localStorage.setItem(key, storageValue);
-      
-      // Handle expiration by storing timestamp if expires is provided
-      if (expires) {
-        localStorage.setItem(key + '_expires', expires.getTime().toString());
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        const storageValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
+        localStorage.setItem(key, storageValue);
+        
+        // Handle expiration by storing timestamp if expires is provided
+        if (expires) {
+          localStorage.setItem(key + '_expires', expires.getTime().toString());
+        }
+      } catch (error) {
+        // Handle storage quota exceeded or other storage errors silently
+        console.warn('LocalStorage unavailable:', error);
       }
     }
   }
@@ -123,9 +132,13 @@ export class LocalStorageHandler extends BaseStorage {
    * ```
    */
   remove(key: string): void {
-    if (typeof Storage !== 'undefined') {
-      localStorage.removeItem(key);
-      localStorage.removeItem(key + '_expires');
+    if (typeof Storage !== 'undefined' && localStorage) {
+      try {
+        localStorage.removeItem(key);
+        localStorage.removeItem(key + '_expires');
+      } catch (error) {
+        console.warn('LocalStorage unavailable:', error);
+      }
     }
   }
 }

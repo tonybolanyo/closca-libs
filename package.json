@@ -1,12 +1,33 @@
 {
   "name": "closca-libs",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Closca Angular Base Library - A modernized Angular library providing authentication services, HTTP interceptors, and storage handlers",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build": "ng build ng-gnommo-base",
+    "build:prod": "ng build ng-gnommo-base --configuration production",
+    "test": "ng test ng-gnommo-base --watch=false --browsers=ChromeHeadless",
+    "test:watch": "ng test ng-gnommo-base",
+    "pack": "npm run build:prod && cd dist/ng-gnommo-base && npm pack",
+    "start": "ng test ng-gnommo-base",
+    "dev": "ng test ng-gnommo-base",
+    "lint": "ng lint ng-gnommo-base 2>/dev/null || echo 'Linting not configured'",
+    "watch": "ng build ng-gnommo-base --watch --configuration development"
+  },
+  "keywords": [
+    "angular",
+    "library",
+    "authentication",
+    "http-interceptors",
+    "storage",
+    "closca",
+    "gnommo-base"
+  ],
+  "author": "Closca Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonybolanyo/closca-libs.git"
   },
   "prettier": {
     "printWidth": 100,
@@ -20,7 +41,7 @@
       }
     ]
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",

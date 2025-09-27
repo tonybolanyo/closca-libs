@@ -16,6 +16,33 @@ import { WebLocalStorage, CookieStorage } from './storage/storage.handler';
 import { LocalStorageHandler } from './storage/local-storage.handler';
 import { CookieHandler } from './storage/cookie.handler';
 
+/**
+ * NgGnommoBaseModule provides core functionality for Angular applications.
+ * 
+ * This module includes authentication services, HTTP interceptors, storage handlers,
+ * and base services for CRUD operations. It provides a complete foundation for
+ * Angular applications that need authentication and API communication capabilities.
+ * 
+ * ## Features Included:
+ * - Authentication token management
+ * - HTTP request/response interceptors
+ * - Storage abstractions (localStorage, cookies)
+ * - Base services for CRUD operations
+ * - Type-safe interfaces and models
+ * 
+ * @example
+ * ```typescript
+ * import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+ * 
+ * @NgModule({
+ *   imports: [
+ *     NgGnommoBaseModule.forRoot()
+ *   ],
+ *   // ...
+ * })
+ * export class AppModule { }
+ * ```
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +50,36 @@ import { CookieHandler } from './storage/cookie.handler';
   ]
 })
 export class NgGnommoBaseModule {
-  
+  /**
+   * Configures the NgGnommoBaseModule with providers and interceptors.
+   * 
+   * This static method should be called when importing the module in your
+   * application's root module. It configures all the necessary providers,
+   * HTTP interceptors, and storage handlers.
+   * 
+   * ## Configured Providers:
+   * - AuthService: Authentication token management
+   * - LoginBaseService: Authentication operations (login, register, etc.)
+   * - AuthInterceptor: Automatic token injection
+   * - ErrorInterceptor: Centralized error handling
+   * - LocalStorageHandler: Browser localStorage wrapper
+   * - CookieHandler: Browser cookie wrapper
+   * 
+   * @static
+   * @returns {ModuleWithProviders<NgGnommoBaseModule>} Module with providers configuration
+   * 
+   * @example
+   * ```typescript
+   * @NgModule({
+   *   imports: [
+   *     BrowserModule,
+   *     NgGnommoBaseModule.forRoot()
+   *   ],
+   *   // ...
+   * })
+   * export class AppModule { }
+   * ```
+   */
   static forRoot(): ModuleWithProviders<NgGnommoBaseModule> {
     return {
       ngModule: NgGnommoBaseModule,

@@ -1,0 +1,46 @@
+{
+  "_args": [
+    [
+      "@gnommostudios/ng-gnommo-base@0.0.8",
+      "/Users/mario/Documents/Projects-Front/closca-admin-panel"
+    ]
+  ],
+  "_from": "@gnommostudios/ng-gnommo-base@0.0.8",
+  "_id": "@gnommostudios/ng-gnommo-base@0.0.8",
+  "_inBundle": false,
+  "_integrity": "sha512-WIXqh0KXquhdXZl823j3b/o5GnW8xCNAwx/yGs6IBluQzzD+bS4HiwBffK2e9ArMuYx2f6hdDm7affhfp7dRrw==",
+  "_location": "/@gnommostudios/ng-gnommo-base",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@gnommostudios/ng-gnommo-base@0.0.8",
+    "name": "@gnommostudios/ng-gnommo-base",
+    "escapedName": "@gnommostudios%2fng-gnommo-base",
+    "scope": "@gnommostudios",
+    "rawSpec": "0.0.8",
+    "saveSpec": null,
+    "fetchSpec": "0.0.8"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@gnommostudios/ng-gnommo-base/-/ng-gnommo-base-0.0.8.tgz",
+  "_spec": "0.0.8",
+  "_where": "/Users/mario/Documents/Projects-Front/closca-admin-panel",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "es2015": "fesm2015/gnommostudios-ng-gnommo-base.js",
+  "esm2015": "esm2015/gnommostudios-ng-gnommo-base.js",
+  "esm5": "esm5/gnommostudios-ng-gnommo-base.js",
+  "fesm2015": "fesm2015/gnommostudios-ng-gnommo-base.js",
+  "fesm5": "fesm5/gnommostudios-ng-gnommo-base.js",
+  "main": "bundles/gnommostudios-ng-gnommo-base.umd.js",
+  "metadata": "gnommostudios-ng-gnommo-base.metadata.json",
+  "module": "fesm5/gnommostudios-ng-gnommo-base.js",
+  "name": "@gnommostudios/ng-gnommo-base",
+  "sideEffects": false,
+  "typings": "gnommostudios-ng-gnommo-base.d.ts",
+  "version": "0.0.8"
+}

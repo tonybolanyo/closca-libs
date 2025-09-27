@@ -1,0 +1,26 @@
+{
+  "name": "@gnommostudios/ng-gnommo-base",
+  "version": "1.0.0",
+  "description": "Angular base library providing authentication services, HTTP interceptors, and storage handlers",
+  "keywords": [
+    "angular",
+    "authentication",
+    "http-interceptors",
+    "storage",
+    "base-service"
+  ],
+  "author": "GnommoStudios",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonybolanyo/closca-libs.git"
+  },
+  "peerDependencies": {
+    "@angular/common": ">=10.0.0",
+    "@angular/core": ">=10.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

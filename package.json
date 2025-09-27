@@ -1,0 +1,69 @@
+{
+  "name": "closca-libs",
+  "version": "1.0.0",
+  "description": "Closca Angular Base Library - A modernized Angular library providing authentication services, HTTP interceptors, and storage handlers",
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build ng-gnommo-base",
+    "build:prod": "ng build ng-gnommo-base --configuration production",
+    "test": "ng test ng-gnommo-base --watch=false --browsers=ChromeHeadless",
+    "test:watch": "ng test ng-gnommo-base",
+    "pack": "npm run build:prod && cd dist/ng-gnommo-base && npm pack",
+    "start": "ng test ng-gnommo-base",
+    "dev": "ng test ng-gnommo-base",
+    "lint": "ng lint ng-gnommo-base 2>/dev/null || echo 'Linting not configured'",
+    "watch": "ng build ng-gnommo-base --watch --configuration development"
+  },
+  "keywords": [
+    "angular",
+    "library",
+    "authentication",
+    "http-interceptors",
+    "storage",
+    "closca",
+    "gnommo-base"
+  ],
+  "author": "Closca Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tonybolanyo/closca-libs.git"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": false,
+  "dependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/compiler": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@angular/forms": "^20.3.0",
+    "@angular/platform-browser": "^20.3.0",
+    "@angular/router": "^20.3.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^20.3.3",
+    "@angular/cli": "^20.3.3",
+    "@angular/compiler-cli": "^20.3.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.9.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^20.3.0",
+    "typescript": "~5.9.2"
+  }
+}

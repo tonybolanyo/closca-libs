@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CookieStorage } from '../../storage/storage.handler';
+// import { CookieStorage } from '../../storage/storage.handler';
 import { AuthToken } from '../../models/auth-token.model';
 
-@Injectable()
-export class AuthService {
   private token: AuthToken | null = null;
 
-  constructor(protected storage: CookieStorage) {}
+  private storage: LocalStorageHandler;
 
+  constructor() {
+    this.storage = new LocalStorageHandler();
+  }
   getToken(): AuthToken {
     if (!this.token) {
       const tokenData = this.storage.get('access_token');

@@ -335,7 +335,7 @@ export class UserService extends BaseService<User> {
 
   // Update user status
   updateUserStatus(userId: string, isActive: boolean): Observable<User> {
-    return this.update(userId, { isActive } as User);
+    return this.update(userId, { isActive });
   }
 
   // Deactivate user instead of delete

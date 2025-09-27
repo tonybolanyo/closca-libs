@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStorage } from './storage.handler';
+import { BaseStorage, CookieStorage } from './storage.handler';
 import { StorageValue } from '../interfaces/http-types.interface';
 
 /**
@@ -35,7 +35,7 @@ import { StorageValue } from '../interfaces/http-types.interface';
  * ```
  */
 @Injectable()
-export class CookieHandler extends BaseStorage {
+export class CookieHandler extends CookieStorage {
   
   /**
    * Retrieves a value from cookies by name.

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStorage } from './storage.handler';
+import { BaseStorage, WebLocalStorage } from './storage.handler';
 import { StorageValue } from '../interfaces/http-types.interface';
 
 /**
@@ -31,7 +31,7 @@ import { StorageValue } from '../interfaces/http-types.interface';
  * ```
  */
 @Injectable()
-export class LocalStorageHandler extends BaseStorage {
+export class LocalStorageHandler extends WebLocalStorage {
   
   /**
    * Retrieves a value from localStorage by key.

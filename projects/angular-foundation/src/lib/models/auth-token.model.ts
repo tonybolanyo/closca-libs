@@ -69,7 +69,23 @@ export class AuthToken implements AuthTokenInterface {
     if (data) {
       this.id = data.id;
       this.ttl = data.ttl;
-      this.created = data.created instanceof Date ? data.created : (data.created ? new Date(data.created) : undefined);
+      
+      // Handle created property with null preservation and backward compatibility
+      if (data.created === null) {
+        this.created = null as any;
+      } else if (data.created instanceof Date) {
+        this.created = data.created;
+      } else if (data.created) {
+        // For backward compatibility, preserve string dates as-is if they're strings
+        if (typeof data.created === 'string') {
+          this.created = data.created as any;
+        } else {
+          this.created = new Date(data.created);
+        }
+      } else {
+        this.created = undefined;
+      }
+      
       this.userId = data.userId;
     }
   }

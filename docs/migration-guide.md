@@ -107,7 +107,7 @@ class UserService extends BaseService<User> {
 
 1. **Update Module Import**:
    ```typescript
-   // Replace AngularFoundationModule with AngularFoundationModule
+   // Replace NgGnommoBaseModule with AngularFoundationModule
    import { AngularFoundationModule } from '@tyris/angular-foundation';
    ```
 

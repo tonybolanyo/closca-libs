@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseStorage } from './storage.handler';
+import { StorageValue } from '../interfaces/http-types.interface';
 
 @Injectable()
 export class LocalStorageHandler extends BaseStorage {
   
-  get(key: string): any {
+  get(key: string): StorageValue {
     if (typeof Storage !== 'undefined') {
       const value = localStorage.getItem(key);
       if (value) {
@@ -18,9 +19,9 @@ export class LocalStorageHandler extends BaseStorage {
     return null;
   }
 
-  set(key: string, value: any, expires?: Date): void {
+  set(key: string, value: StorageValue, expires?: Date): void {
     if (typeof Storage !== 'undefined') {
-      const storageValue = typeof value === 'object' ? JSON.stringify(value) : value;
+      const storageValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
       localStorage.setItem(key, storageValue);
       
       // Handle expiration by storing timestamp if expires is provided

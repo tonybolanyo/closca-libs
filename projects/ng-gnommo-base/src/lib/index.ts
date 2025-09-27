@@ -14,6 +14,15 @@ export { ErrorInterceptor } from './helpers/error.interceptor';
 
 // Interfaces
 export type { AuthTokenInterface } from './interfaces/auth-token.interface';
+export type { 
+  HttpHeaderMap, 
+  StorageValue, 
+  LoginCredentials, 
+  PasswordRecoveryRequest, 
+  PasswordResetRequest, 
+  AuthenticationResponse, 
+  ApiResponse 
+} from './interfaces/http-types.interface';
 
 // Models
 export { AuthToken } from './models/auth-token.model';

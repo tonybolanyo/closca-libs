@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BaseModel } from '../../models/base.model';
+import { HttpHeaderMap } from '../../interfaces/http-types.interface';
 
 @Injectable()
 export abstract class BaseService<T extends BaseModel> {
@@ -22,51 +23,56 @@ export abstract class BaseService<T extends BaseModel> {
     this.endpoint = endpoint;
   }
 
-  getAll(headers?: any): Observable<T[]> {
+  getAll(headers?: HttpHeaderMap): Observable<T[]> {
     const options = this.createHttpHeaders(headers);
     return this.http.get<T[]>(`${this.url}/${this.endpoint}`, options);
   }
 
-  getById(_id: string, headers?: any): Observable<T> {
+  getById(_id: string, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.get<T>(`${this.url}/${this.endpoint}/${_id}`, options);
   }
 
-  create(item: T, headers?: any): Observable<T> {
+  create(item: T, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.post<T>(`${this.url}/${this.endpoint}`, item, options);
   }
 
-  update(_id: string, item: T, headers?: any): Observable<T> {
+  update(_id: string, item: T, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.patch<T>(`${this.url}/${this.endpoint}/${_id}`, item, options);
   }
 
-  updateComplete(_id: string, item: T, headers?: any): Observable<T> {
+  updateComplete(_id: string, item: T, headers?: HttpHeaderMap): Observable<T> {
     const options = this.createHttpHeaders(headers);
     return this.http.put<T>(`${this.url}/${this.endpoint}/${_id}`, item, options);
   }
 
-  delete(_id: string, headers?: any): Observable<any> {
+  delete(_id: string, headers?: HttpHeaderMap): Observable<void> {
     const options = this.createHttpHeaders(headers);
-    return this.http.delete(`${this.url}/${this.endpoint}/${_id}`, options);
+    return this.http.delete<void>(`${this.url}/${this.endpoint}/${_id}`, options);
   }
 
-  createHttpHeaders(headers?: any): { headers: HttpHeaders } {
+  createHttpHeaders(headers?: HttpHeaderMap): { headers: HttpHeaders } {
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
     if (headers) {
       Object.keys(headers).forEach(key => {
-        httpHeaders = httpHeaders.set(key, headers[key]);
+        const value = headers[key];
+        if (typeof value === 'string') {
+          httpHeaders = httpHeaders.set(key, value);
+        } else if (Array.isArray(value)) {
+          httpHeaders = httpHeaders.set(key, value.join(', '));
+        }
       });
     }
 
     return { headers: httpHeaders };
   }
 
-  httpHeadersWithoutAuth(headers?: any): { headers: HttpHeaders } {
+  httpHeadersWithoutAuth(headers?: HttpHeaderMap): { headers: HttpHeaders } {
     let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -74,7 +80,12 @@ export abstract class BaseService<T extends BaseModel> {
     if (headers) {
       Object.keys(headers).forEach(key => {
         if (key.toLowerCase() !== 'authorization') {
-          httpHeaders = httpHeaders.set(key, headers[key]);
+          const value = headers[key];
+          if (typeof value === 'string') {
+            httpHeaders = httpHeaders.set(key, value);
+          } else if (Array.isArray(value)) {
+            httpHeaders = httpHeaders.set(key, value.join(', '));
+          }
         }
       });
     }

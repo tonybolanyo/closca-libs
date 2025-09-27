@@ -80,8 +80,8 @@ export class LocalStorageHandler extends WebLocalStorage {
               return parsedData;
             }
           } catch (e) {
-            // If JSON parsing fails, return the raw value
-            return storedData;
+            // If JSON parsing fails, return null for corrupted data
+            return null;
           }
         }
       } catch (error) {
@@ -120,10 +120,9 @@ export class LocalStorageHandler extends WebLocalStorage {
       try {
         const storageData: any = { value };
         
-        // Add expiration if provided
-        if (expires) {
-          storageData.expires = expires.toISOString();
-        }
+        // Always add expiration - use provided date or default to 7 days from now
+        const expirationDate = expires || this.getDefaultExpiration();
+        storageData.expires = expirationDate.toISOString();
         
         localStorage.setItem(key, JSON.stringify(storageData));
       } catch (error) {
@@ -131,6 +130,18 @@ export class LocalStorageHandler extends WebLocalStorage {
         console.warn('LocalStorage unavailable:', error);
       }
     }
+  }
+
+  /**
+   * Gets the default expiration date (7 days from now).
+   * 
+   * @private
+   * @returns {Date} A date 7 days from the current time
+   */
+  private getDefaultExpiration(): Date {
+    const date = new Date();
+    date.setDate(date.getDate() + 7);
+    return date;
   }
 
   /**

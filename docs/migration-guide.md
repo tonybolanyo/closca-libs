@@ -114,7 +114,7 @@ class UserService extends BaseService<User> {
 2. **Update Module Configuration**:
    ```typescript
    @NgModule({
-     imports: [AngularFoundationModule.forRoot()] // Changed from AngularFoundationModule
+     imports: [AngularFoundationModule.forRoot()] // Changed from NgGnommoBaseModule
    })
    ```
 

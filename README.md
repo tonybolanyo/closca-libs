@@ -378,7 +378,7 @@ We welcome feature requests! Please:
 ## 📊 Project Stats
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![npm version](https://img.shields.io/npm/v/@tyris/angular-foundation)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Angular](https://img.shields.io/badge/Angular-10%2B-red)

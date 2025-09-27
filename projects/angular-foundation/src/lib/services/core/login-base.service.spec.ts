@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { LoginBaseService } from './login-base.service';
 import { BaseModel } from '../../models/base.model';
 import { 
@@ -17,6 +18,7 @@ interface TestUser extends BaseModel {
   password?: string;
 }
 
+@Injectable()
 class TestLoginService extends LoginBaseService<TestUser> {
   constructor(http: HttpClient) {
     super(http);

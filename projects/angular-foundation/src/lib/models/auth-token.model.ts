@@ -76,9 +76,16 @@ export class AuthToken implements AuthTokenInterface {
       } else if (data.created instanceof Date) {
         this.created = data.created;
       } else if (data.created) {
-        // For backward compatibility, preserve string dates as-is if they're strings
+        // For string dates, try to parse as Date first
         if (typeof data.created === 'string') {
-          this.created = data.created as any;
+          // Check if it's an ISO date string (which should be converted to Date)
+          const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{3})?Z?$/;
+          if (isoDateRegex.test(data.created)) {
+            this.created = new Date(data.created);
+          } else {
+            // For non-ISO strings, preserve as-is for backward compatibility
+            this.created = data.created as any;
+          }
         } else {
           this.created = new Date(data.created);
         }

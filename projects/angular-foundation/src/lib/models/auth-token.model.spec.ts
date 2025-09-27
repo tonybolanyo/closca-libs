@@ -420,17 +420,17 @@ describe('AuthToken', () => {
     });
 
     it('should handle old library data format', () => {
-      // Old library might have stored data with string dates
+      // Old library might have stored data with string dates that get converted to Date objects
       const oldFormatData = {
         id: 'old-format-token',
-        created: '2023-01-01T00:00:00.000Z' as any, // String instead of Date
+        created: '2023-01-01T00:00:00.000Z' as any, // String that should be converted to Date  
         ttl: 1672588800000
       };
 
       const token = new AuthToken(oldFormatData);
       
       expect(token.id).toBe('old-format-token');
-      expect(token.created).toBe('2023-01-01T00:00:00.000Z' as any); // Should preserve whatever was passed
+      expect(token.created).toEqual(new Date('2023-01-01T00:00:00.000Z')); // ISO strings should be converted to Date objects
       expect(token.ttl).toBe(1672588800000);
     });
 

@@ -34,7 +34,7 @@ ng version
 ng update @angular/core @angular/cli
 
 # Install the library
-npm install @gnommostudios/ng-gnommo-base
+npm install @tyris/angular-foundation
 ```
 
 **Prevention**: Ensure your Angular version meets the minimum requirements (v10.0.0+).
@@ -44,26 +44,26 @@ npm install @gnommostudios/ng-gnommo-base
 **Symptoms**:
 ```typescript
 ERROR in src/app/app.module.ts(5,10): error TS2305: 
-Module '"@gnommostudios/ng-gnommo-base"' has no exported member 'GnommoBaseModule'.
+Module '"@tyris/angular-foundation"' has no exported member 'AngularFoundationModule'.
 ```
 
 **Solution**:
 ```typescript
 // Correct import (v1.0.0+)
-import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
 
 @NgModule({
-  imports: [NgGnommoBaseModule.forRoot()]
+  imports: [AngularFoundationModule.forRoot()]
 })
 ```
 
-**Root Cause**: Module name changed from `GnommoBaseModule` to `NgGnommoBaseModule` in v1.0.0.
+**Root Cause**: Module name changed from `AngularFoundationModule` to `AngularFoundationModule` in v1.0.0.
 
 ### Problem: Dependency Conflicts
 
 **Symptoms**:
 ```
-npm WARN @gnommostudios/ng-gnommo-base@1.0.0 requires a peer of rxjs@^6.0.0 but rxjs@7.0.0 is installed
+npm WARN @tyris/angular-foundation@1.0.0 requires a peer of rxjs@^6.0.0 but rxjs@7.0.0 is installed
 ```
 
 **Solution**:
@@ -197,7 +197,7 @@ onSubmit() {
 ```typescript
 // Check if AuthInterceptor is registered
 // In app.module.ts, verify:
-imports: [NgGnommoBaseModule.forRoot()] // This registers interceptors
+imports: [AngularFoundationModule.forRoot()] // This registers interceptors
 
 // Check token availability
 const token = this.authService.getToken();
@@ -210,7 +210,7 @@ console.log('Token for request:', token);
 ```typescript
 @NgModule({
   imports: [
-    NgGnommoBaseModule.forRoot() // Must call forRoot()
+    AngularFoundationModule.forRoot() // Must call forRoot()
   ]
 })
 ```
@@ -242,7 +242,7 @@ intercept(req: HttpRequest<any>, next: HttpHandler) {
 
 **Solution**:
 ```typescript
-import { InterceptorSkipHeader } from '@gnommostudios/ng-gnommo-base';
+import { InterceptorSkipHeader } from '@tyris/angular-foundation';
 
 // Correct usage
 const headers = new HttpHeaders().set(InterceptorSkipHeader, 'true');
@@ -483,10 +483,10 @@ getUserById(id: string): Observable<User> {
 **Solution**:
 ```typescript
 // Use specific imports
-import { AuthService, BaseService } from '@gnommostudios/ng-gnommo-base';
+import { AuthService, BaseService } from '@tyris/angular-foundation';
 
 // Not barrel imports if having issues
-// Avoid: import * as NgGnommoBase from '@gnommostudios/ng-gnommo-base';
+// Avoid: import * as NgGnommoBase from '@tyris/angular-foundation';
 ```
 
 ### Problem: Circular Dependency Warnings
@@ -537,7 +537,7 @@ beforeEach(() => {
 beforeEach(() => {
   TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
-    // Don't import NgGnommoBaseModule in tests
+    // Don't import AngularFoundationModule in tests
     providers: [AuthService] // Import services individually
   });
 });
@@ -547,7 +547,7 @@ beforeEach(() => {
   TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule,
-      NgGnommoBaseModule.forRoot() // This includes interceptors
+      AngularFoundationModule.forRoot() // This includes interceptors
     ]
   });
 });
@@ -640,8 +640,8 @@ ng build --prod --source-map
 npx webpack-bundle-analyzer dist/your-app/main.js
 
 # Use specific imports
-import { AuthService } from '@gnommostudios/ng-gnommo-base';
-// Not: import * as NgGnommoBase from '@gnommostudios/ng-gnommo-base';
+import { AuthService } from '@tyris/angular-foundation';
+// Not: import * as NgGnommoBase from '@tyris/angular-foundation';
 ```
 
 ## Browser Compatibility
@@ -710,7 +710,7 @@ if (!environment.production) {
 
 When reporting issues, please include:
 
-1. **Library version**: `npm list @gnommostudios/ng-gnommo-base`
+1. **Library version**: `npm list @tyris/angular-foundation`
 2. **Angular version**: `ng version`
 3. **Browser and version**
 4. **Error messages** (full stack traces)

@@ -1,15 +1,18 @@
 {
-  "name": "@gnommostudios/ng-gnommo-base",
+  "name": "@tyris/angular-foundation",
   "version": "1.0.0",
-  "description": "Angular base library providing authentication services, HTTP interceptors, and storage handlers",
+  "description": "Angular foundation library providing authentication services, HTTP interceptors, storage handlers, and base CRUD operations",
   "keywords": [
     "angular",
     "authentication",
     "http-interceptors",
     "storage",
-    "base-service"
+    "base-service",
+    "foundation",
+    "crud",
+    "tyris"
   ],
-  "author": "GnommoStudios",
+  "author": "Tyris",
   "license": "MIT",
   "repository": {
     "type": "git",

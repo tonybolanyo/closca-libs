@@ -17,7 +17,7 @@ import { LocalStorageHandler } from './storage/local-storage.handler';
 import { CookieHandler } from './storage/cookie.handler';
 
 /**
- * NgGnommoBaseModule provides core functionality for Angular applications.
+ * AngularFoundationModule provides core functionality for Angular applications.
  * 
  * This module includes authentication services, HTTP interceptors, storage handlers,
  * and base services for CRUD operations. It provides a complete foundation for
@@ -32,11 +32,11 @@ import { CookieHandler } from './storage/cookie.handler';
  * 
  * @example
  * ```typescript
- * import { NgGnommoBaseModule } from '@gnommostudios/ng-gnommo-base';
+ * import { AngularFoundationModule } from '@tyris/angular-foundation';
  * 
  * @NgModule({
  *   imports: [
- *     NgGnommoBaseModule.forRoot()
+ *     AngularFoundationModule.forRoot()
  *   ],
  *   // ...
  * })
@@ -49,9 +49,9 @@ import { CookieHandler } from './storage/cookie.handler';
     HttpClientModule
   ]
 })
-export class NgGnommoBaseModule {
+export class AngularFoundationModule {
   /**
-   * Configures the NgGnommoBaseModule with providers and interceptors.
+   * Configures the AngularFoundationModule with providers and interceptors.
    * 
    * This static method should be called when importing the module in your
    * application's root module. It configures all the necessary providers,
@@ -66,23 +66,23 @@ export class NgGnommoBaseModule {
    * - CookieHandler: Browser cookie wrapper
    * 
    * @static
-   * @returns {ModuleWithProviders<NgGnommoBaseModule>} Module with providers configuration
+   * @returns {ModuleWithProviders<AngularFoundationModule>} Module with providers configuration
    * 
    * @example
    * ```typescript
    * @NgModule({
    *   imports: [
    *     BrowserModule,
-   *     NgGnommoBaseModule.forRoot()
+   *     AngularFoundationModule.forRoot()
    *   ],
    *   // ...
    * })
    * export class AppModule { }
    * ```
    */
-  static forRoot(): ModuleWithProviders<NgGnommoBaseModule> {
+  static forRoot(): ModuleWithProviders<AngularFoundationModule> {
     return {
-      ngModule: NgGnommoBaseModule,
+      ngModule: AngularFoundationModule,
       providers: [
         // Services
         AuthService,

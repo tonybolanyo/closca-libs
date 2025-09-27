@@ -130,15 +130,15 @@ describe('AuthService', () => {
         service.setToken(tokenId);
 
         expect(localStorageSpy.setItem).toHaveBeenCalled();
-        // The storage handler makes two calls: one for data, one for expiration
-        // We need the first call which contains the token data
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        // The storage handler now makes one call with integrated format
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe('access_token');
         
         const storedData = JSON.parse(setItemCall.args[1]);
-        expect(storedData.id).toBe(tokenId);
-        expect(storedData.created).toBe('2023-01-01T00:00:00.000Z');
-        expect(typeof storedData.ttl).toBe('number');
+        expect(storedData.value.id).toBe(tokenId);
+        expect(storedData.value.created).toBe('2023-01-01T00:00:00.000Z');
+        expect(typeof storedData.value.ttl).toBe('number');
+        expect(typeof storedData.expires).toBe('string'); // Should have expiration
       });
 
       it('should create AuthToken instance with correct expiration', () => {
@@ -191,8 +191,8 @@ describe('AuthService', () => {
         token = service.getToken();
         expect(token.id).toBe('second-token');
         
-        // Each setToken call makes 2 localStorage calls (data + expiration)
-        expect(localStorageSpy.setItem).toHaveBeenCalledTimes(4);
+        // Each setToken call now makes 1 localStorage call (integrated format)
+        expect(localStorageSpy.setItem).toHaveBeenCalledTimes(2);
       });
     });
 
@@ -258,11 +258,13 @@ describe('AuthService', () => {
         service.persist(key, value, expirationDate);
 
         expect(localStorageSpy.setItem).toHaveBeenCalled();
-        // The storage handler makes two calls: one for data, one for expiration
-        // We need the first call which contains the actual data
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        // The storage handler now uses integrated format
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        expect(setItemCall.args[1]).toBe(value); // Direct string value, not JSON object
+        
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toBe(value);
+        expect(storedData.expires).toBe(expirationDate.toISOString());
       });
 
       it('should persist object value with expiration', () => {
@@ -272,10 +274,12 @@ describe('AuthService', () => {
         
         service.persist(key, value, expirationDate);
 
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        // For objects, LocalStorageHandler JSON.stringify's the value directly
-        expect(setItemCall.args[1]).toBe(JSON.stringify(value));
+        
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toEqual(value);
+        expect(storedData.expires).toBe(expirationDate.toISOString());
       });
 
       it('should use default expiration when not provided', () => {
@@ -284,14 +288,16 @@ describe('AuthService', () => {
         
         service.persist(key, value);
 
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        expect(setItemCall.args[1]).toBe(value);
         
-        // Check that expiration was set (second call should be for expiration)
-        expect(localStorageSpy.setItem).toHaveBeenCalledTimes(2);
-        const expiresCall = localStorageSpy.setItem.calls.argsFor(1);
-        expect(expiresCall[0]).toBe(key + '_expires');
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toBe(value);
+        expect(storedData.expires).toBeDefined();
+        
+        // Should use default 7-day expiration
+        const expectedExpiration = new Date('2023-01-08T00:00:00Z');
+        expect(storedData.expires).toBe(expectedExpiration.toISOString());
       });
 
       it('should handle null value', () => {
@@ -300,9 +306,11 @@ describe('AuthService', () => {
         
         service.persist(key, value);
 
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        expect(setItemCall.args[1]).toBe('null'); // null becomes string "null" in LocalStorageHandler
+        
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toBe(value);
       });
 
       it('should handle undefined value', () => {
@@ -311,9 +319,11 @@ describe('AuthService', () => {
         
         service.persist(key, value);
 
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        expect(setItemCall.args[1]).toBe('undefined'); // undefined becomes string "undefined" in LocalStorageHandler
+        
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toBe(value);
       });
 
       it('should handle array value', () => {
@@ -322,9 +332,11 @@ describe('AuthService', () => {
         
         service.persist(key, value);
 
-        const setItemCall = localStorageSpy.setItem.calls.first();
+        const setItemCall = localStorageSpy.setItem.calls.mostRecent();
         expect(setItemCall.args[0]).toBe(key);
-        expect(setItemCall.args[1]).toBe(JSON.stringify(value)); // Arrays are JSON.stringify'd
+        
+        const storedData = JSON.parse(setItemCall.args[1]);
+        expect(storedData.value).toEqual(value);
       });
     });
 
@@ -462,8 +474,8 @@ describe('AuthService', () => {
       
       const finalToken = service.getToken();
       expect(finalToken.id).toBe('token3');
-      // Each setToken call makes 2 localStorage calls (data + expiration)
-      expect(localStorageSpy.setItem).toHaveBeenCalledTimes(6);
+      // Each setToken call now makes 1 localStorage call (integrated format)
+      expect(localStorageSpy.setItem).toHaveBeenCalledTimes(3);
     });
 
     it('should handle special characters in persisted data', () => {
@@ -476,9 +488,11 @@ describe('AuthService', () => {
       
       service.persist('special_chars', specialData);
       
-      const setItemCall = localStorageSpy.setItem.calls.first();
+      const setItemCall = localStorageSpy.setItem.calls.mostRecent();
       expect(setItemCall.args[0]).toBe('special_chars');
-      expect(setItemCall.args[1]).toBe(JSON.stringify(specialData));
+      
+      const storedData = JSON.parse(setItemCall.args[1]);
+      expect(storedData.value).toEqual(specialData);
     });
   });
 

@@ -58,12 +58,30 @@ export class LocalStorageHandler extends BaseStorage {
   get(key: string): StorageValue {
     if (typeof Storage !== 'undefined' && localStorage) {
       try {
-        const value = localStorage.getItem(key);
-        if (value) {
+        const storedData = localStorage.getItem(key);
+        if (storedData) {
           try {
-            return JSON.parse(value);
+            const parsedData = JSON.parse(storedData);
+            
+            // Check if this is the new format with expiration
+            if (parsedData && typeof parsedData === 'object' && parsedData.hasOwnProperty('value')) {
+              // Check expiration if present
+              if (parsedData.expires) {
+                const expirationDate = new Date(parsedData.expires);
+                if (expirationDate.getTime() < Date.now()) {
+                  // Item has expired, remove it and return null
+                  this.remove(key);
+                  return null;
+                }
+              }
+              return parsedData.value;
+            } else {
+              // Fallback for old format or direct values
+              return parsedData;
+            }
           } catch (e) {
-            return value;
+            // If JSON parsing fails, return the raw value
+            return storedData;
           }
         }
       } catch (error) {
@@ -100,13 +118,14 @@ export class LocalStorageHandler extends BaseStorage {
   set(key: string, value: StorageValue, expires?: Date): void {
     if (typeof Storage !== 'undefined' && localStorage) {
       try {
-        const storageValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
-        localStorage.setItem(key, storageValue);
+        const storageData: any = { value };
         
-        // Handle expiration by storing timestamp if expires is provided
+        // Add expiration if provided
         if (expires) {
-          localStorage.setItem(key + '_expires', expires.getTime().toString());
+          storageData.expires = expires.toISOString();
         }
+        
+        localStorage.setItem(key, JSON.stringify(storageData));
       } catch (error) {
         // Handle storage quota exceeded or other storage errors silently
         console.warn('LocalStorage unavailable:', error);
@@ -135,7 +154,7 @@ export class LocalStorageHandler extends BaseStorage {
     if (typeof Storage !== 'undefined' && localStorage) {
       try {
         localStorage.removeItem(key);
-        localStorage.removeItem(key + '_expires');
+        // Note: No longer removing separate _expires key since we use integrated format
       } catch (error) {
         console.warn('LocalStorage unavailable:', error);
       }

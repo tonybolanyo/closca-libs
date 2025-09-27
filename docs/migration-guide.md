@@ -173,7 +173,7 @@ If you're upgrading from an older Angular version:
 ### Version 1.0.0
 
 #### Module Name Change
-- **Breaking**: `AngularFoundationModule` renamed to `AngularFoundationModule`
+- **Breaking**: `NgGnommoBaseModule` renamed to `AngularFoundationModule`
 - **Impact**: Update imports in app.module.ts
 - **Migration**: Replace import statement as shown above
 

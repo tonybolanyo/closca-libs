@@ -49,7 +49,7 @@ export abstract class BaseService<T extends BaseModel> {
   constructor(protected http: HttpClient) {}
   
   getAll(headers?: HttpHeaderMap): Observable<T[]> {
-    return this.http.get<T[]>(`${this.url}/${this.endpoint}`, options);
+    return this.http.get<T[]>(`${this.url}/${this.endpoint}`, headers ? { headers } : {});
   }
 }
 ```

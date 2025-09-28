@@ -137,28 +137,30 @@ class UserService extends BaseService<User> {
 
 ### Supported Angular Versions
 
-| Library Version | Minimum Angular | Maximum Angular | TypeScript | RxJS |
-|----------------|-----------------|-----------------|------------|------|
-| 1.0.0+         | 10.0.0          | 20.x.x          | 4.0.0+     | 6.0.0+ |
-| 0.0.8          | 8.0.0           | 12.x.x          | 3.8.0+     | 6.0.0+ |
+| Library Version | Minimum Angular | Maximum Angular | TypeScript | RxJS | Node.js |
+|----------------|-----------------|-----------------|------------|------|---------|
+| 1.0.0+         | 6.0.0           | 20.x.x          | 3.8.0+     | 6.5.0+ | 12.0.0+ |
+| 0.0.8          | 8.0.0           | 12.x.x          | 3.8.0+     | 6.0.0+ | 10.0.0+ |
 
-### Angular 10+ Migration Benefits
+### Angular 9+ Migration Benefits
 
-- **Ivy Renderer**: Better tree-shaking and smaller bundle sizes
-- **Enhanced TypeScript**: Stricter type checking and better IntelliSense
-- **Modern Build Tools**: Faster compilation and better development experience
-- **Security Updates**: Latest security patches and improvements
+- **Ivy Renderer Support**: Full compatibility with Angular Ivy (Angular 9+)
+- **Enhanced TypeScript**: Support for TypeScript 3.8+ through 5.9+
+- **Modern Build Tools**: Compatible with latest Angular CLI and build optimizations
+- **Security Updates**: Regular security updates and dependency maintenance
+- **Wide Version Range**: Single library version works with Angular 9 through 20
 
 ### Angular Version Upgrade Guide
 
 If you're upgrading from an older Angular version:
 
+#### Upgrading to Angular 9+ (from Angular 8)
 1. **Follow Angular's Official Migration Guide**:
    ```bash
    ng update @angular/cli @angular/core
    ```
 
-2. **Update the Library**:
+2. **Install Compatible Library Version**:
    ```bash
    npm install @tyris/angular-foundation@latest
    ```
@@ -167,6 +169,32 @@ If you're upgrading from an older Angular version:
    ```bash
    npm update
    ```
+
+#### Upgrading Within Angular 9-12 Range
+- No additional changes required
+- Library works seamlessly across these versions
+
+#### Upgrading Within Angular 13+ Range  
+- Consider using standalone components for new projects
+- Library supports both NgModule and standalone patterns
+
+#### Upgrading to Angular 16+
+- Take advantage of new provider functions
+- Library supports the new `provideHttpClient()` pattern
+
+### Version-Specific Notes
+
+#### Angular 9-12 Projects
+- Use traditional NgModule pattern
+- HttpClientModule required in imports
+
+#### Angular 13+ Projects
+- Can use standalone components with `importProvidersFrom()`
+- Supports both traditional and modern patterns
+
+#### Angular 16+ Projects  
+- Can use new provider functions like `provideHttpClient()`
+- Library providers can be spread directly into providers array
 
 ## Breaking Changes
 

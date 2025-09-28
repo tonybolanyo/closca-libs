@@ -4,12 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
-      "ng-gnommo-base": [
-        "./dist/ng-gnommo-base"
+      "@tyris/angular-foundation": [
+        "./dist/angular-foundation"
       ]
     },
     "noFallthroughCasesInSwitch": true,
@@ -17,23 +15,22 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "preserve"
+    "target": "ES5",
+    "module": "ES2015",
+    "lib": ["ES2015", "dom"],
+    "moduleResolution": "node"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
-    "strictTemplates": true
+    "strictInjectionParameters": true
   },
   "files": [],
   "references": [
     {
-      "path": "./projects/ng-gnommo-base/tsconfig.lib.json"
+      "path": "./projects/angular-foundation/tsconfig.lib.json"
     },
     {
-      "path": "./projects/ng-gnommo-base/tsconfig.spec.json"
+      "path": "./projects/angular-foundation/tsconfig.spec.json"
     }
   ]
 }

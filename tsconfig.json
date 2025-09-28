@@ -4,8 +4,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
       "@tyris/angular-foundation": [
@@ -17,17 +15,14 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "ES2015",
+    "target": "ES5",
     "module": "ES2015",
-    "lib": ["ES2018", "dom"],
+    "lib": ["ES2015", "dom"],
     "moduleResolution": "node"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "typeCheckHostBindings": true,
-    "strictTemplates": true
+    "strictInjectionParameters": true
   },
   "files": [],
   "references": [

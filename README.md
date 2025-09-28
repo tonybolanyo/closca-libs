@@ -1,6 +1,6 @@
 # Tyris Angular Foundation Library (@tyris/angular-foundation)
 
-A modernized Angular library providing authentication services, HTTP interceptors, storage handlers, and base CRUD operations. This library has been completely reconstructed from the original compiled version to support Angular 10+ with modern TypeScript and build tooling.
+A modernized Angular library providing authentication services, HTTP interceptors, storage handlers, and base CRUD operations. This library has been completely reconstructed from the original compiled version to support Angular 6+ with modern TypeScript and build tooling.
 
 ## 🚀 Features
 
@@ -9,7 +9,7 @@ A modernized Angular library providing authentication services, HTTP interceptor
 - **💾 Storage Handlers**: Cookie and Local Storage implementations with expiration support
 - **⚡ Base Services**: Generic CRUD operations with full TypeScript typing
 - **📝 TypeScript Support**: Complete type definitions and strict typing
-- **🎯 Angular 10+ Compatible**: Modern Angular features and best practices
+- **🎯 Angular 6+ Compatible**: Wide compatibility from Angular 6 through Angular 20
 - **📚 Comprehensive Documentation**: Full JSDoc documentation and examples
 - **🧪 Testing Support**: Built with testability in mind
 
@@ -17,6 +17,25 @@ A modernized Angular library providing authentication services, HTTP interceptor
 
 ```bash
 npm install @tyris/angular-foundation
+```
+
+## 👨‍💻 Developer Guide - How to Use for Every Angular Version
+
+This section provides step-by-step instructions for developers working with any Angular version from 6 to 20.
+
+### Prerequisites Check
+
+Before installing, verify your development environment:
+
+```bash
+# Check your Angular version
+ng version
+
+# Check your Node.js version
+node --version
+
+# Check your npm version
+npm --version
 ```
 
 ## 🛠️ Quick Start
@@ -106,6 +125,27 @@ export class LoginComponent {
 
 ### Version-Specific Configuration
 
+#### Angular 6-8 Projects (Legacy)
+```typescript
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule, // Required for HTTP functionality
+    AngularFoundationModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
 #### Angular 9-12 Projects
 ```typescript
 // app.module.ts
@@ -160,6 +200,496 @@ bootstrapApplication(AppComponent, {
   ]
 });
 ```
+
+## 👨‍💻 Complete Developer How-To Guide
+
+### Step 1: Environment Setup
+
+#### For Angular 6-8 Projects
+```bash
+# Ensure you have the correct Node.js version
+node --version  # Should be 10.x or higher
+
+# Check your Angular CLI version
+ng version
+
+# If needed, install/update Angular CLI globally
+npm install -g @angular/cli@6  # For Angular 6
+npm install -g @angular/cli@7  # For Angular 7  
+npm install -g @angular/cli@8  # For Angular 8
+```
+
+#### For Angular 9+ Projects
+```bash
+# Ensure you have the correct Node.js version
+node --version  # Should be 12.x or higher for Angular 9+
+
+# Check your Angular CLI version
+ng version
+
+# Update Angular CLI if needed
+npm install -g @angular/cli@latest
+```
+
+### Step 2: Project Setup
+
+#### Creating a New Project
+```bash
+# Create new Angular project
+ng new my-angular-app
+
+# Navigate to project directory
+cd my-angular-app
+
+# Install the foundation library
+npm install @tyris/angular-foundation
+```
+
+#### Adding to Existing Project
+```bash
+# Navigate to your existing project
+cd your-existing-project
+
+# Install the foundation library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies
+npm ls @angular/core @angular/common rxjs
+```
+
+### Step 3: Module Configuration
+
+Choose the configuration method based on your Angular version:
+
+#### For Angular 6-12 (Traditional NgModule)
+```typescript
+// src/app/app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; // If using template-driven forms
+import { ReactiveFormsModule } from '@angular/forms'; // If using reactive forms
+
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+    // Add your components here
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,           // Required for HTTP functionality
+    FormsModule,               // Optional: for template-driven forms
+    ReactiveFormsModule,       // Optional: for reactive forms
+    AngularFoundationModule.forRoot() // Configure the foundation library
+  ],
+  providers: [
+    // Add your custom providers here
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### For Angular 13+ (Standalone Components)
+```typescript
+// src/main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(
+      HttpClientModule,
+      FormsModule,
+      ReactiveFormsModule,
+      AngularFoundationModule.forRoot()
+    ),
+    // Add your custom providers here
+  ]
+}).catch(err => console.error(err));
+```
+
+#### For Angular 16+ (Modern Providers)
+```typescript
+// src/main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    provideRouter(routes),
+    // Spread the foundation library providers
+    ...AngularFoundationModule.forRoot().providers,
+    // Add your custom providers here
+  ]
+}).catch(err => console.error(err));
+```
+
+### Step 4: Creating Your Models
+
+```typescript
+// src/app/models/user.model.ts
+import { BaseModel } from '@tyris/angular-foundation';
+
+export interface User extends BaseModel {
+  name: string;
+  email: string;
+  role: 'admin' | 'user' | 'guest';
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+// src/app/models/auth-response.model.ts
+export interface AuthResponse {
+  token: string;
+  user: User;
+  expiresIn: number;
+}
+```
+
+### Step 5: Creating Services
+
+#### Authentication Service
+```typescript
+// src/app/services/auth.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { LoginBaseService, AuthService as BaseAuthService } from '@tyris/angular-foundation';
+import { User, AuthResponse } from '../models/user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService extends LoginBaseService<User> {
+  constructor(
+    http: HttpClient,
+    private baseAuthService: BaseAuthService
+  ) {
+    super(http);
+    // Configure your API endpoints
+    this.initializeConfig('https://your-api.com/api', 'auth');
+  }
+
+  // Custom login method
+  loginUser(email: string, password: string): Observable<AuthResponse> {
+    return this.login({ email, password });
+  }
+
+  // Check if user is authenticated
+  isLoggedIn(): boolean {
+    return this.baseAuthService.isAuthenticated();
+  }
+
+  // Get current user token
+  getCurrentToken(): string | null {
+    return this.baseAuthService.getToken();
+  }
+
+  // Logout user
+  logoutUser(): void {
+    this.baseAuthService.clearToken();
+  }
+}
+```
+
+#### Data Service Example
+```typescript
+// src/app/services/user.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { BaseService } from '@tyris/angular-foundation';
+import { User } from '../models/user.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService extends BaseService<User> {
+  constructor(http: HttpClient) {
+    super(http);
+    // Configure your API endpoints
+    this.setApiConfig('https://your-api.com/api', 'users');
+  }
+
+  // Get user profile
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.url}/${this.endpoint}/profile`);
+  }
+
+  // Update user profile
+  updateProfile(user: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.url}/${this.endpoint}/profile`, user);
+  }
+}
+```
+
+### Step 6: Creating Components
+
+#### Login Component
+```typescript
+// src/app/components/login/login.component.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  template: `
+    <div class="login-container">
+      <h2>Login</h2>
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            type="email" 
+            id="email"
+            name="email"
+            [(ngModel)]="credentials.email" 
+            required 
+            #email="ngModel">
+          <div *ngIf="email.invalid && email.touched" class="error">
+            Email is required
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input 
+            type="password" 
+            id="password"
+            name="password"
+            [(ngModel)]="credentials.password" 
+            required 
+            #password="ngModel">
+          <div *ngIf="password.invalid && password.touched" class="error">
+            Password is required
+          </div>
+        </div>
+        
+        <button 
+          type="submit" 
+          [disabled]="loginForm.invalid || isLoading">
+          {{ isLoading ? 'Logging in...' : 'Login' }}
+        </button>
+        
+        <div *ngIf="errorMessage" class="error">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  `,
+  styles: [`
+    .login-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #6c757d;
+      cursor: not-allowed;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  `]
+})
+export class LoginComponent {
+  credentials = {
+    email: '',
+    password: ''
+  };
+  
+  isLoading = false;
+  errorMessage = '';
+
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  login(): void {
+    if (!this.credentials.email || !this.credentials.password) {
+      this.errorMessage = 'Please fill in all fields';
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.authService.loginUser(this.credentials.email, this.credentials.password)
+      .subscribe({
+        next: (response) => {
+          console.log('Login successful', response);
+          // Navigate to dashboard or protected route
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error('Login failed', error);
+          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.isLoading = false;
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+  }
+}
+```
+
+### Step 7: Building and Testing
+
+#### Build Commands
+```bash
+# Development build
+npm run build
+
+# Production build
+npm run build:prod
+
+# Version-specific builds
+npm run build:angular6-8   # For Angular 6-8
+npm run build:angular9-12  # For Angular 9-12
+npm run build:angular13-15 # For Angular 13-15
+npm run build:angular16-18 # For Angular 16-18
+npm run build:angular19-20 # For Angular 19-20
+```
+
+#### Testing
+```bash
+# Run unit tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+#### Development Server
+```bash
+# Start development server
+ng serve
+
+# Start development server on specific port
+ng serve --port 4200
+
+# Start development server with auto-open browser
+ng serve --open
+```
+
+### Step 8: Deployment Preparation
+
+#### Package for Distribution
+```bash
+# Create distribution package
+npm run pack
+
+# Version-specific packages
+npm run pack:angular6-8   # For Angular 6-8
+npm run pack:angular9-12  # For Angular 9-12
+npm run pack:angular13-15 # For Angular 13-15
+npm run pack:angular16-18 # For Angular 16-18
+npm run pack:angular19-20 # For Angular 19-20
+```
+
+#### Environment Configuration
+```typescript
+// src/environments/environment.ts (Development)
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api',
+  appName: 'My Angular App'
+};
+
+// src/environments/environment.prod.ts (Production)
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-production-api.com/api',
+  appName: 'My Angular App'
+};
+```
+
+### Troubleshooting Common Issues
+
+#### Peer Dependency Warnings
+```bash
+# Check what peer dependencies are missing
+npm ls
+
+# Install missing peer dependencies
+npm install @angular/core@^6.0.0 @angular/common@^6.0.0 rxjs@^6.0.0
+
+# Force resolution if needed (package.json)
+{
+  "overrides": {
+    "@angular/core": "^6.0.0"
+  }
+}
+```
+
+#### Build Errors
+```bash
+# Clear node_modules and reinstall
+rm -rf node_modules package-lock.json
+npm install
+
+# Clear Angular cache
+ng cache clean
+
+# Rebuild with verbose output
+ng build --verbose
+```
+
+#### Runtime Errors
+- Check browser console for detailed error messages
+- Verify all required imports are in your module
+- Ensure HttpClientModule is imported for HTTP functionality
+- Check that environment variables are correctly configured
+
+This comprehensive guide should help any developer integrate the Tyris Angular Foundation Library into their project, regardless of their Angular version!
 
 ## 📖 Core Concepts
 
@@ -327,6 +857,9 @@ This creates a `.tgz` file in `dist/angular-foundation/` ready for NPM publishin
 
 | Angular Version | Library Version | TypeScript | RxJS | Node.js | Status |
 |----------------|-----------------|------------|------|---------|---------|
+| **6.x** | 1.0.0+ | 2.7.x+ | 6.0.x+ | 10.x+ | ✅ Full Support |
+| **7.x** | 1.0.0+ | 3.1.x+ | 6.3.x+ | 10.x+ | ✅ Full Support |
+| **8.x** | 1.0.0+ | 3.4.x+ | 6.4.x+ | 10.x+ | ✅ Full Support |
 | **9.x** | 1.0.0+ | 3.8.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
 | **10.x** | 1.0.0+ | 3.9.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
 | **11.x** | 1.0.0+ | 4.0.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
@@ -341,6 +874,18 @@ This creates a `.tgz` file in `dist/angular-foundation/` ready for NPM publishin
 | **20.x** | 1.0.0+ | 5.6.x+ | 7.8.x+ | 18.x+ | ✅ Full Support |
 
 ### Installation by Angular Version
+
+#### Angular 6-8 (Legacy Support)
+```bash
+# Install library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies 
+npm install @angular/core@^6.0.0 @angular/common@^6.0.0 rxjs@^6.0.0
+
+# Build your project
+npm run build:angular6-8
+```
 
 #### Angular 9-12
 ```bash
@@ -395,6 +940,12 @@ npm run build:angular19-20
 The library provides version-specific build commands:
 
 ```bash
+# For Angular 6
+npm run pack:angular6
+
+# For Angular 6-8 group  
+npm run pack:angular6-8
+
 # For Angular 9
 npm run pack:angular9
 
@@ -519,8 +1070,8 @@ We welcome feature requests! Please:
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![npm version](https://img.shields.io/npm/v/@tyris/angular-foundation)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Angular](https://img.shields.io/badge/Angular-9%2B-red)
-![TypeScript](https://img.shields.io/badge/TypeScript-3.8%2B-blue)
+![Angular](https://img.shields.io/badge/Angular-6%2B-red)
+![TypeScript](https://img.shields.io/badge/TypeScript-2.7%2B-blue)
 
 ---
 

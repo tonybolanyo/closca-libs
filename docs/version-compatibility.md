@@ -8,20 +8,73 @@ This document provides comprehensive information about the Angular Foundation Li
 
 | Angular Version | Library Version | TypeScript | RxJS | Node.js | Build Target | Status |
 |----------------|-----------------|------------|------|---------|--------------|---------|
-| **9.0.x - 9.1.x** | 1.0.0+ | 3.8.x - 3.9.x | 6.5.x - 6.6.x | 12.x - 14.x | ES2015 | ✅ Fully Supported |
-| **10.0.x - 10.2.x** | 1.0.0+ | 3.9.x - 4.0.x | 6.5.x - 6.6.x | 12.x - 14.x | ES2015 | ✅ Fully Supported |
-| **11.0.x - 11.2.x** | 1.0.0+ | 4.0.x - 4.1.x | 6.6.x | 12.x - 14.x | ES2015 | ✅ Fully Supported |
-| **12.0.x - 12.2.x** | 1.0.0+ | 4.2.x - 4.3.x | 6.6.x | 12.x - 16.x | ES2015 | ✅ Fully Supported |
-| **13.0.x - 13.3.x** | 1.0.0+ | 4.4.x - 4.5.x | 7.4.x | 14.x - 16.x | ES2015 | ✅ Fully Supported |
-| **14.0.x - 14.3.x** | 1.0.0+ | 4.7.x - 4.8.x | 7.5.x | 14.x - 16.x | ES2015 | ✅ Fully Supported |
-| **15.0.x - 15.2.x** | 1.0.0+ | 4.8.x - 4.9.x | 7.5.x | 16.x - 18.x | ES2015 | ✅ Fully Supported |
-| **16.0.x - 16.2.x** | 1.0.0+ | 4.9.x - 5.0.x | 7.5.x | 16.x - 18.x | ES2015 | ✅ Fully Supported |
-| **17.0.x - 17.3.x** | 1.0.0+ | 5.0.x - 5.2.x | 7.5.x | 18.x | ES2015 | ✅ Fully Supported |
-| **18.0.x - 18.2.x** | 1.0.0+ | 5.0.x - 5.4.x | 7.5.x | 18.x | ES2015 | ✅ Fully Supported |
-| **19.0.x - 19.2.x** | 1.0.0+ | 5.4.x - 5.6.x | 7.8.x | 18.x | ES2015 | ✅ Fully Supported |
-| **20.0.x - 20.3.x** | 1.0.0+ | 5.6.x - 5.9.x | 7.8.x | 18.x | ES2015 | ✅ Fully Supported |
+| **6.0.x - 6.1.x** | 1.0.0+ | 2.7.x - 2.9.x | 6.0.x - 6.2.x | 10.x - 12.x | ES5 | ✅ Fully Supported |
+| **7.0.x - 7.2.x** | 1.0.0+ | 3.1.x - 3.2.x | 6.3.x - 6.4.x | 10.x - 12.x | ES5 | ✅ Fully Supported |
+| **8.0.x - 8.2.x** | 1.0.0+ | 3.4.x - 3.5.x | 6.4.x - 6.5.x | 10.x - 12.x | ES5 | ✅ Fully Supported |
+| **9.0.x - 9.1.x** | 1.0.0+ | 3.8.x - 3.9.x | 6.5.x - 6.6.x | 12.x - 14.x | ES5 | ✅ Fully Supported |
+| **10.0.x - 10.2.x** | 1.0.0+ | 3.9.x - 4.0.x | 6.5.x - 6.6.x | 12.x - 14.x | ES5 | ✅ Fully Supported |
+| **11.0.x - 11.2.x** | 1.0.0+ | 4.0.x - 4.1.x | 6.6.x | 12.x - 14.x | ES5 | ✅ Fully Supported |
+| **12.0.x - 12.2.x** | 1.0.0+ | 4.2.x - 4.3.x | 6.6.x | 12.x - 16.x | ES5 | ✅ Fully Supported |
+| **13.0.x - 13.3.x** | 1.0.0+ | 4.4.x - 4.5.x | 7.4.x | 14.x - 16.x | ES5 | ✅ Fully Supported |
+| **14.0.x - 14.3.x** | 1.0.0+ | 4.7.x - 4.8.x | 7.5.x | 14.x - 16.x | ES5 | ✅ Fully Supported |
+| **15.0.x - 15.2.x** | 1.0.0+ | 4.8.x - 4.9.x | 7.5.x | 16.x - 18.x | ES5 | ✅ Fully Supported |
+| **16.0.x - 16.2.x** | 1.0.0+ | 4.9.x - 5.0.x | 7.5.x | 16.x - 18.x | ES5 | ✅ Fully Supported |
+| **17.0.x - 17.3.x** | 1.0.0+ | 5.0.x - 5.2.x | 7.5.x | 18.x | ES5 | ✅ Fully Supported |
+| **18.0.x - 18.2.x** | 1.0.0+ | 5.0.x - 5.4.x | 7.5.x | 18.x | ES5 | ✅ Fully Supported |
+| **19.0.x - 19.2.x** | 1.0.0+ | 5.4.x - 5.6.x | 7.8.x | 18.x | ES5 | ✅ Fully Supported |
+| **20.0.x - 20.3.x** | 1.0.0+ | 5.6.x - 5.9.x | 7.8.x | 18.x | ES5 | ✅ Fully Supported |
 
 ## 🚀 Installation Instructions by Version Group
+
+### Angular 6-8 (Legacy Support)
+
+#### Prerequisites
+```bash
+# Check your Angular version
+ng version
+
+# Ensure you have the correct Node.js version (10.x - 12.x)
+node --version
+```
+
+#### Installation
+```bash
+# Install the library
+npm install @tyris/angular-foundation
+
+# Install peer dependencies if not already present
+npm install @angular/core@">=6.0.0" @angular/common@">=6.0.0" rxjs@">=6.0.0"
+```
+
+#### Module Setup
+```typescript
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule, // Required for HTTP functionality
+    AngularFoundationModule.forRoot()
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+#### Build Commands
+```bash
+# Build for Angular 6-8
+npm run build:angular6-8
+
+# Package for distribution
+npm run pack:angular6-8
+```
 
 ### Angular 9 - 12 (Traditional Module Pattern)
 
@@ -294,6 +347,8 @@ The library provides version-specific build scripts:
 
 ```bash
 # Individual version builds
+npm run build:angular6      # Angular 6 specific
+npm run build:angular6-8    # Angular 6-8 group
 npm run build:angular9      # Angular 9 specific
 npm run build:angular9-12   # Angular 9-12 group
 npm run build:angular13-15  # Angular 13-15 group  
@@ -301,6 +356,8 @@ npm run build:angular16-18  # Angular 16-18 group
 npm run build:angular19-20  # Angular 19-20 group
 
 # Package builds
+npm run pack:angular6       # Package for Angular 6
+npm run pack:angular6-8     # Package for Angular 6-8
 npm run pack:angular9       # Package for Angular 9
 npm run pack:angular9-12    # Package for Angular 9-12
 npm run pack:angular13-15   # Package for Angular 13-15

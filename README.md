@@ -104,6 +104,63 @@ export class LoginComponent {
 }
 ```
 
+### Version-Specific Configuration
+
+#### Angular 9-12 Projects
+```typescript
+// app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule, // Required for Angular 9-12
+    AngularFoundationModule.forRoot()
+  ],
+  // ...
+})
+export class AppModule { }
+```
+
+#### Angular 13+ Projects (Standalone Components)
+```typescript  
+// main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(
+      HttpClientModule,
+      AngularFoundationModule.forRoot()
+    )
+  ]
+});
+```
+
+#### Angular 16+ Projects (Standalone with Providers)
+```typescript
+// main.ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideHttpClient } from '@angular/common/http';
+import { AngularFoundationModule } from '@tyris/angular-foundation';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideHttpClient(),
+    // Import AngularFoundationModule providers directly
+    ...AngularFoundationModule.forRoot().providers
+  ]
+});
+```
+
 ## 📖 Core Concepts
 
 ### Authentication Flow
@@ -266,12 +323,93 @@ This creates a `.tgz` file in `dist/angular-foundation/` ready for NPM publishin
 
 ## 🔄 Compatibility
 
-| Component | Version Range |
-|-----------|---------------|
-| **Angular** | 10.0.0 - 20.x.x |
-| **TypeScript** | 4.0.0+ |
-| **RxJS** | 6.0.0+ |
-| **Node.js** | 14.0.0+ |
+### Angular Version Support
+
+| Angular Version | Library Version | TypeScript | RxJS | Node.js | Status |
+|----------------|-----------------|------------|------|---------|---------|
+| **9.x** | 1.0.0+ | 3.8.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
+| **10.x** | 1.0.0+ | 3.9.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
+| **11.x** | 1.0.0+ | 4.0.x+ | 6.5.x+ | 12.x+ | ✅ Full Support |
+| **12.x** | 1.0.0+ | 4.2.x+ | 6.6.x+ | 12.x+ | ✅ Full Support |
+| **13.x** | 1.0.0+ | 4.4.x+ | 7.4.x+ | 14.x+ | ✅ Full Support |
+| **14.x** | 1.0.0+ | 4.7.x+ | 7.5.x+ | 14.x+ | ✅ Full Support |  
+| **15.x** | 1.0.0+ | 4.8.x+ | 7.5.x+ | 16.x+ | ✅ Full Support |
+| **16.x** | 1.0.0+ | 4.9.x+ | 7.5.x+ | 16.x+ | ✅ Full Support |
+| **17.x** | 1.0.0+ | 5.0.x+ | 7.5.x+ | 18.x+ | ✅ Full Support |
+| **18.x** | 1.0.0+ | 5.0.x+ | 7.5.x+ | 18.x+ | ✅ Full Support |
+| **19.x** | 1.0.0+ | 5.4.x+ | 7.8.x+ | 18.x+ | ✅ Full Support |
+| **20.x** | 1.0.0+ | 5.6.x+ | 7.8.x+ | 18.x+ | ✅ Full Support |
+
+### Installation by Angular Version
+
+#### Angular 9-12
+```bash
+# Install library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies 
+npm install @angular/core@^9.0.0 @angular/common@^9.0.0 rxjs@^6.5.0
+
+# Build your project
+npm run build:angular9-12
+```
+
+#### Angular 13-15  
+```bash
+# Install library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies
+npm install @angular/core@^13.0.0 @angular/common@^13.0.0 rxjs@^7.4.0
+
+# Build your project
+npm run build:angular13-15
+```
+
+#### Angular 16-18
+```bash  
+# Install library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies
+npm install @angular/core@^16.0.0 @angular/common@^16.0.0 rxjs@^7.5.0
+
+# Build your project  
+npm run build:angular16-18
+```
+
+#### Angular 19-20
+```bash
+# Install library
+npm install @tyris/angular-foundation
+
+# Verify peer dependencies
+npm install @angular/core@^19.0.0 @angular/common@^19.0.0 rxjs@^7.8.0
+
+# Build your project
+npm run build:angular19-20
+```
+
+### Package Building for Different Versions
+
+The library provides version-specific build commands:
+
+```bash
+# For Angular 9
+npm run pack:angular9
+
+# For Angular 9-12 group  
+npm run pack:angular9-12
+
+# For Angular 13-15 group
+npm run pack:angular13-15
+
+# For Angular 16-18 group
+npm run pack:angular16-18
+
+# For Angular 19-20 group (latest)
+npm run pack:angular19-20
+```
 
 ## 🚀 Migration from v0.0.8
 
@@ -381,8 +519,8 @@ We welcome feature requests! Please:
 ![Coverage](https://img.shields.io/badge/coverage-98%25-brightgreen)
 ![npm version](https://img.shields.io/npm/v/@tyris/angular-foundation)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Angular](https://img.shields.io/badge/Angular-10%2B-red)
-![TypeScript](https://img.shields.io/badge/TypeScript-4.0%2B-blue)
+![Angular](https://img.shields.io/badge/Angular-9%2B-red)
+![TypeScript](https://img.shields.io/badge/TypeScript-3.8%2B-blue)
 
 ---
 

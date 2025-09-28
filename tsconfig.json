@@ -8,8 +8,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "paths": {
-      "ng-gnommo-base": [
-        "./dist/ng-gnommo-base"
+      "@tyris/angular-foundation": [
+        "./dist/angular-foundation"
       ]
     },
     "noFallthroughCasesInSwitch": true,
@@ -17,8 +17,10 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "preserve"
+    "target": "ES2015",
+    "module": "ES2015",
+    "lib": ["ES2018", "dom"],
+    "moduleResolution": "node"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -30,10 +32,10 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/ng-gnommo-base/tsconfig.lib.json"
+      "path": "./projects/angular-foundation/tsconfig.lib.json"
     },
     {
-      "path": "./projects/ng-gnommo-base/tsconfig.spec.json"
+      "path": "./projects/angular-foundation/tsconfig.spec.json"
     }
   ]
 }

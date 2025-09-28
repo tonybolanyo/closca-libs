@@ -19,8 +19,10 @@
     "url": "https://github.com/tonybolanyo/closca-libs.git"
   },
   "peerDependencies": {
-    "@angular/common": ">=10.0.0",
-    "@angular/core": ">=10.0.0"
+    "@angular/common": ">=9.0.0",
+    "@angular/core": ">=9.0.0",
+    "rxjs": ">=6.0.0",
+    "typescript": ">=3.8.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

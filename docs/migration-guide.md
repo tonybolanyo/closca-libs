@@ -139,7 +139,7 @@ class UserService extends BaseService<User> {
 
 | Library Version | Minimum Angular | Maximum Angular | TypeScript | RxJS | Node.js |
 |----------------|-----------------|-----------------|------------|------|---------|
-| 1.0.0+         | 9.0.0           | 20.x.x          | 3.8.0+     | 6.5.0+ | 12.0.0+ |
+| 1.0.0+         | 6.0.0           | 20.x.x          | 3.8.0+     | 6.5.0+ | 12.0.0+ |
 | 0.0.8          | 8.0.0           | 12.x.x          | 3.8.0+     | 6.0.0+ | 10.0.0+ |
 
 ### Angular 9+ Migration Benefits
